@@ -92,9 +92,9 @@ export const CodeTour = (props: CodeTourProps) => {
             >
               <pre
                 style={{ transition: "opacity 0.3s" }}
-                className={cx("!py-0 !px-2 !bg-transparent", {
-                  "!pb-2": index === sourceCode.length - 1,
-                  "!pt-2": index === 0,
+                className={cx("!py-0 !px-1 md:!px-2 !bg-transparent", {
+                  "!pb-1 md:!pb-2": index === sourceCode.length - 1,
+                  "!pt-1 md:!pt-2": index === 0,
 
                   "opacity-40":
                     config?.focus !== undefined &&
@@ -111,7 +111,7 @@ export const CodeTour = (props: CodeTourProps) => {
                       language: sourceLanguage,
                     }).value,
                   }}
-                  className="leading-8"
+                  className="leading-7"
                 />
               </pre>
             </div>
@@ -122,30 +122,30 @@ export const CodeTour = (props: CodeTourProps) => {
   }, [currentStep, defaultSourceCode, language]);
 
   return (
-    <div className="rounded-md h-full p-4 md:p-6 bg-v2-green-dark overflow-auto">
-      <div className="bg-[#011627] w-max min-w-full p-4">
-        <div className="bottom-0 py-4 md:py-6 left-0 !w-full flex justify-center">
-          <button
-            className="bg-white p-2 rounded-full flex justify-center items-center"
-            onClick={decreaseStepIndex}
-          >
-            <Icon
-              icon="iconoir:transition-down"
-              className="!text-v2-green-dark text-2xl"
-            />
-          </button>{" "}
-          <button
-            className="bg-white p-2 rounded-full flex justify-center items-center"
-            onClick={increaseStepIndex}
-          >
-            <Icon
-              icon="iconoir:transition-down"
-              className="!text-v2-green-dark text-2xl"
-            />
-          </button>
-        </div>
+    <div className="h-full p-4 md:p-6 bg-v2-green-dark">
+      <div className="bottom-0 py-4 md:py-6 left-0 !w-full flex justify-center">
+        <button
+          className="bg-white p-2 flex justify-center items-center"
+          onClick={decreaseStepIndex}
+        >
+          <Icon
+            icon="solar:arrow-left-line-duotone"
+            className="!text-v2-green-dark text-2xl"
+          />
+        </button>{" "}
+        <button
+          className="bg-white p-2 flex justify-center items-center"
+          onClick={increaseStepIndex}
+        >
+          <Icon
+            icon="solar:arrow-right-line-duotone"
+            className="!text-v2-green-dark text-2xl"
+          />
+        </button>
+      </div>
 
-        {codeToRender}
+      <div className="h-full overflow-auto">
+        <div className="bg-[#011627] w-max min-w-full p-4">{codeToRender}</div>
       </div>
     </div>
   );
