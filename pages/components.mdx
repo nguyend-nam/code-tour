@@ -1,0 +1,29 @@
+import { Card, Cards } from "nextra-theme-docs";
+
+# Wrapper Components
+
+Scrollery provides wrapper components for animating your websites on scroll.
+
+<Cards>
+  <Card
+    className="h-[240px] border border-slate-100 transition-all duration-400 bg-slate-50 overflow-hidden hover:shadow-md"
+    title={
+      <div className="flex flex-col justify-between items-center gap-8 w-full h-full">
+        <div className="border-b border-gray-200 w-full pb-4">
+          <span className="w-max text-word-main">ParallaxWrapper</span>
+        </div>
+        <img
+          src="/parallax-card-demo.png"
+          className="pointer-events-none w-[170px]"
+        />
+      </div>
+    }
+    href="/components/parallax-wrapper"
+  />
+</Cards>
+
+<div className="mt-4 flex w-full justify-center">
+  And much more components below
+</div>
+
+- [ParallaxWrapper](/components/parallax-wrapper)

@@ -1,24 +1,59 @@
 {
-  "name": "scrollery-dev",
-  "version": "0.1.0",
-  "private": true,
+  "name": "@nguyend-nam/code-tour",
+  "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nguyend-nam/code-tour"
+  },
+  "homepage": "https://code-tour.js.org",
+  "readme": "https://github.com/nguyend-nam/code-tour#readme",
+  "type": "commonjs",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "clean": "rm -rf dist",
+    "npm-build": "npm run clean && tsc && cp package.json README.md ./dist"
   },
   "dependencies": {
+    "@dwarvesf/react-hooks": "^0.7.0",
+    "@dwarvesf/react-utils": "^0.4.1",
+    "@iconify/react": "^4.1.1",
+    "classnames": "^2.3.2",
+    "highlight.js": "^11.9.0",
     "next": "13.4.7",
+    "nextra": "^2.8.0",
+    "nextra-theme-docs": "^2.8.0",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "ts-loader": "^9.4.3",
+    "webpack": "^5.88.0"
   },
   "devDependencies": {
     "@types/node": "20.3.1",
     "@types/react": "18.2.13",
     "@types/react-dom": "18.2.6",
+    "autoprefixer": "^10.4.14",
     "eslint": "8.43.0",
     "eslint-config-next": "13.4.7",
-    "typescript": "5.1.3"
-  }
+    "postcss": "^8.4.24",
+    "tailwindcss": "^3.3.2",
+    "typescript": "5.1.3",
+    "webpack-cli": "^5.1.4"
+  },
+  "description": "React TypeScript library for effortlessly animating your websites on scroll.",
+  "files": [
+    "dist"
+  ],
+  "main": "dist/components/index.js",
+  "types": "dist/components/index.d.ts",
+  "keywords": [
+    "code-walkthrough",
+    "code-snippet",
+    "slide-show",
+    "code"
+  ],
+  "author": "",
+  "license": "ISC"
 }

@@ -1,34 +1,85 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Scrollery
 
-## Getting Started
+View on: [NPM](https://www.npmjs.com/package/@nguyend-nam/scrollery-ts) &bullet; [GitHub](https://github.com/nguyend-nam/scrollery)
 
-First, run the development server:
+[Official website](https://scrollery.js.org)
+
+Scrollery is a specialized UI library that empowers developers to effortlessly animate the contents as users scroll through websites. With Scrollery, you can create stunning, interactive, and engaging scroll animations that leave a lasting impression on your users.
+
+<image src="https://raw.githubusercontent.com/nguyend-nam/scrollery/main/public/preview.gif"></image>
+
+## Installation
 
 ```bash
-npm run dev
-# or
-yarn dev
+yarn add @nguyend-nam/scrollery-ts
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+or install using npm:
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+```bash
+npm i @nguyend-nam/scrollery-ts
+```
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+## Usage
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+### Import wrapper components
 
-## Learn More
+```javascript
+import {
+  LinearlyScaledWrapper,
+  StackedWrapper,
+} from "@nguyend-nam/scrollery-ts";
+```
 
-To learn more about Next.js, take a look at the following resources:
+### Using in the web
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Put the `img`s inside the wrappers with some custom style/className:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+```javascript
+// ...
 
-## Deploy on Vercel
+<LinearlyScaledWrapper className="w-full flex flex-col items-center gap-[800px] !mt-8 !mb-[800px]">
+  <img
+    src="/img/cat1.png"
+    className="w-full h-full object-cover"
+    alt="Coding cat"
+  />
+</LinearlyScaledWrapper>
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+<StackedWrapper className="w-full space-y-[1400px] !mt-8 !mb-40 px-4">
+  <img
+    src="/img/cat2.png"
+    className="w-full h-full object-cover"
+    alt="Flexing cat"
+  />
+  <img
+    src="/img/cat3.png"
+    className="w-full h-full object-cover"
+    alt="Sitting cat"
+  />
+  <img
+    src="/img/cat4.png"
+    className="w-full h-full object-cover"
+    alt="Sleepy cat"
+  />
+</StackedWrapper>
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+// ...
+```
+
+### Preview
+
+<image src="https://raw.githubusercontent.com/nguyend-nam/scrollery/main/public/example.gif"></image>
+
+## Official website & documentation
+
+- Official website: https://scrollery.js.org
+- Document: https://scrollery.js.org/introduction
+
+## Contributing
+
+Scrollery is an open-source project hosted on GitHub, and we encourage you to join us in shaping its future. Whether you have ideas for new features, want to report bugs, or are interested in improving the library's functionality, your contributions are highly valued. Visit our GitHub repository at https://github.com/nguyend-nam/scrollery to get involved and contribute to the project.
+
+## License
+
+[ISC](https://choosealicense.com/licenses/isc/)
