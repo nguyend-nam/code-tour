@@ -11,10 +11,10 @@ interface CodeStep {
   stepName?: string;
   sourceCode?: string;
   focus?: number | ([number, number] | number)[];
-  replace?: {
+  replaces?: {
     line: number;
     values: string;
-  };
+  }[];
   language?: HighlightOptions["language"];
 }
 
@@ -71,18 +71,22 @@ export const CodeTour = (props: CodeTourProps) => {
     const config = currentStep
       ? {
           focus: currentStep?.focus,
-          replace: currentStep?.replace,
+          replaces: currentStep?.replaces,
         }
       : undefined;
 
-    let amountsAdded = -1;
+    let amountsAdded: number[] = [];
 
-    if (config?.replace) {
-      const newLines = [...sourceCode];
-      newLines[config.replace.line] = config.replace.values;
-      sourceCode = newLines.join("\n").split("\n");
+    if (config?.replaces && config?.replaces.length > 0) {
+      config.replaces.forEach((replace) => {
+        const newLines = [...sourceCode];
+        newLines[replace.line] = replace.values;
+        sourceCode = newLines.join("\n").split("\n");
 
-      amountsAdded = config.replace.values.split("\n").length;
+        for (let i = 0; i < replace.values.split("\n").length; i++) {
+          amountsAdded.push(replace.line + i);
+        }
+      });
     }
 
     return (
@@ -97,15 +101,14 @@ export const CodeTour = (props: CodeTourProps) => {
               <pre
                 style={{
                   transition: "opacity 0.3s",
-                  ...(config?.replace &&
-                  index >= config.replace.line &&
-                  index <= config.replace.line - 1 + amountsAdded
+                  ...(config?.replaces && amountsAdded.includes(index)
                     ? {
                         animation: "slide-left 0.3s linear forwards",
                       }
                     : {}),
+                  backgroundColor: "transparent",
                 }}
-                className={cx("!py-0 !px-1 md:!px-2 !bg-transparent", {
+                className={cx("!py-0 !px-1 md:!px-2", {
                   "!pb-1 md:!pb-2": index === sourceCode.length - 1,
                   "!pt-1 md:!pt-2": index === 0,
 
@@ -140,15 +143,15 @@ export const CodeTour = (props: CodeTourProps) => {
   }, [currentStep, defaultSourceCode, language]);
 
   return (
-    <div className="h-full p-4 md:p-6 bg-v2-green-dark">
-      <div className="bottom-0 py-4 md:py-6 left-0 !w-full flex justify-center">
+    <div className="h-full p-4 md:p-6 bg-v2-green-normal">
+      <div className="bottom-0 pb-4 md:pb-6 gap-4 md:gap-6 left-0 !w-full flex justify-center">
         <button
           className="bg-white p-2 flex justify-center items-center"
           onClick={decreaseStepIndex}
         >
           <Icon
             icon="solar:arrow-left-line-duotone"
-            className="!text-v2-green-dark text-2xl"
+            className="text-2xl text-v2-green-normal"
           />
         </button>{" "}
         <button
@@ -157,13 +160,15 @@ export const CodeTour = (props: CodeTourProps) => {
         >
           <Icon
             icon="solar:arrow-right-line-duotone"
-            className="!text-v2-green-dark text-2xl"
+            className="text-2xl text-v2-green-normal"
           />
         </button>
       </div>
 
       <div className="h-full overflow-auto">
-        <div className="bg-[#011627] w-max min-w-full p-4">{codeToRender}</div>
+        <div className="bg-v2-blue-dark w-max min-w-full p-4">
+          {codeToRender}
+        </div>
       </div>
     </div>
   );

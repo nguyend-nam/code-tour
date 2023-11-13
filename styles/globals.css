@@ -67,6 +67,7 @@ table.nx-block td {
   0% {
     transform: translateX(8px);
   }
+
   100% {
     transform: translateX(0px);
   }

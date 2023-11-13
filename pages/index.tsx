@@ -26,39 +26,49 @@ export default function Home() {
             },
             {
               focus: 4,
-              replace: {
-                line: 4,
-                values: "    dolor",
-              },
+              replaces: [
+                {
+                  line: 4,
+                  values: "    dolor",
+                },
+              ],
             },
             {
               focus: 4,
-              replace: {
-                line: 4,
-                values: "    dolor = elit(dolor, 4)",
-              },
+              replaces: [
+                {
+                  line: 4,
+                  values: "    dolor = elit(dolor, 4)",
+                },
+              ],
             },
             {
               focus: 5,
-              replace: {
-                line: 4,
-                values: "    dolor = elit(dolor, 4)\n    dolor",
-              },
+              replaces: [
+                {
+                  line: 4,
+                  values: "    dolor = elit(dolor, 4)\n    dolor",
+                },
+              ],
             },
             {
               focus: 5,
-              replace: {
-                line: 4,
-                values:
-                  "    dolor = elit(dolor, 4)\n    dolor = elit(dolor, 5)",
-              },
+              replaces: [
+                {
+                  line: 4,
+                  values:
+                    "    dolor = elit(dolor, 4)\n    dolor = elit(dolor, 5)",
+                },
+              ],
             },
             {
-              replace: {
-                line: 4,
-                values:
-                  "    dolor = elit(dolor, 4)\n    dolor = elit(dolor, 5)",
-              },
+              replaces: [
+                {
+                  line: 4,
+                  values:
+                    "    dolor = elit(dolor, 4)\n    dolor = elit(dolor, 5)",
+                },
+              ],
             },
           ]}
         />
