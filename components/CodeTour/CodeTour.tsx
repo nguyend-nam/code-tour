@@ -150,7 +150,7 @@ export const CodeTour = (props: CodeTourProps) => {
   }, [currentStep, defaultSourceCode, language]);
 
   return (
-    <div style={{ padding: 24 }}>
+    <div style={{ maxWidth: "100%", padding: 24 }}>
       <div
         style={{
           display: "flex",
@@ -197,7 +197,9 @@ export const CodeTour = (props: CodeTourProps) => {
         </button>
       </div>
 
-      <div style={{ height: "100%", overflow: "auto" }}>
+      <div
+        style={{ maxWidth: "100%", boxSizing: "border-box", overflow: "auto" }}
+      >
         <div
           style={{
             backgroundColor: "#15172E",

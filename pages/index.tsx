@@ -82,7 +82,7 @@ export default function Home() {
           >
             <div className="h-full w-full relative">
               <div className="absolute right-0 bottom-[72px] md:bottom-[108px] h-1/2 md:h-3/5 w-full md:w-3/4 lg:w-3/5 max-w-full bg-v2-blue-dark flex flex-col justify-between">
-                <div className="p-10 md:p-20">
+                <div className="py-10 md:py-20 px-6 md:px-20">
                   <Brand
                     theme="primary-light"
                     className="!text-4xl md:!text-5xl block mb-4"
@@ -104,14 +104,14 @@ export default function Home() {
                 </button>
 
                 <div className="flex w-full md:w-3/4 lg:w-3/5">
-                  <button className="w-1/2 p-4 py-6 md:p-10 bg-v2-green-normal font-semibold text-v2-blue-dark flex items-center gap-2">
+                  <button className="w-1/2 p-6 md:p-10 bg-v2-green-normal font-semibold text-v2-blue-dark flex items-center gap-2">
                     <Icon
                       icon="solar:arrow-right-line-duotone"
                       className="text-2xl shrink-0"
                     />
                     <span className="text-base md:text-lg">Get Started</span>
                   </button>
-                  <button className="w-1/2 p-4 py-6 md:p-10 bg-slate-800 font-semibold text-lg text-v2-green-normal flex items-center gap-2">
+                  <button className="w-1/2 p-6 md:p-10 bg-slate-800 font-semibold text-lg text-v2-green-normal flex items-center gap-2">
                     <Icon icon="uim:github" className="text-2xl shrink-0" />
                     <span className="text-base md:text-lg hidden md:block">
                       View on GitHub
