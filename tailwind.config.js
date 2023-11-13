@@ -11,29 +11,20 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        word: {
-          light: "#6B7280",
-          main: "#334155",
-        },
         v2: {
           green: {
-            light: "#03FBA2",
-            normal: "#0DBBA5",
-            dark: "#02A8A8",
-            extraDark: "#018383",
+            normal: "#00DBC0",
           },
           blue: {
-            extraDark: "#26588a",
-            dark: "#2B2992",
-            normal: "#183FE1",
-            light: "#55E3FF",
+            dark: "#15172E",
           },
           purple: {
-            dark: "#581EFF",
+            dark: '#545BAB',
+            normal: '#581EFF',
           },
-          rose: {
-            normal: "#FF3565",
-          },
+          grey: {
+            dark: '#6B7280',
+          }
         },
       },
     },

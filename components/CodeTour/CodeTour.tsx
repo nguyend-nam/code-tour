@@ -1,6 +1,5 @@
 import { Icon } from "@iconify/react";
 import { useEffect, useState } from "react";
-import cx from "classnames";
 
 import hljs from "highlight.js/lib/common";
 import { useMemo } from "react";
@@ -10,11 +9,11 @@ import { useCallback } from "react";
 interface CodeStep {
   stepName?: string;
   sourceCode?: string;
-  focus?: number | [number, number];
-  replace?: {
+  focus?: number | ([number, number] | number)[];
+  replaces?: {
     line: number;
     values: string;
-  };
+  }[];
   language?: HighlightOptions["language"];
 }
 
@@ -71,14 +70,22 @@ export const CodeTour = (props: CodeTourProps) => {
     const config = currentStep
       ? {
           focus: currentStep?.focus,
-          replace: currentStep?.replace,
+          replaces: currentStep?.replaces,
         }
       : undefined;
 
-    if (config?.replace) {
-      const newLines = [...sourceCode];
-      newLines[config.replace.line] = config.replace.values;
-      sourceCode = newLines.join("\n").split("\n");
+    let amountsAdded: number[] = [];
+
+    if (config?.replaces && config?.replaces.length > 0) {
+      config.replaces.forEach((replace) => {
+        const newLines = [...sourceCode];
+        newLines[replace.line] = replace.values;
+        sourceCode = newLines.join("\n").split("\n");
+
+        for (let i = 0; i < replace.values.split("\n").length; i++) {
+          amountsAdded.push(replace.line + i);
+        }
+      });
     }
 
     return (
@@ -87,23 +94,42 @@ export const CodeTour = (props: CodeTourProps) => {
           return (
             <div
               key={index}
-              className="w-max text-white transition-all duration-300"
+              style={{
+                width: "max-content",
+                color: "#fff",
+                transition: "all 0.3s",
+              }}
               id={line}
             >
               <pre
-                style={{ transition: "opacity 0.3s" }}
-                className={cx("!py-0 !px-1 md:!px-2 !bg-transparent", {
-                  "!pb-1 md:!pb-2": index === sourceCode.length - 1,
-                  "!pt-1 md:!pt-2": index === 0,
-
-                  "opacity-40":
-                    config?.focus !== undefined &&
-                    ((typeof config?.focus === "number" &&
-                      index !== config.focus) ||
-                      (Array.isArray(config?.focus) &&
-                        config?.focus.length === 2 &&
-                        (index < config.focus[0] || index > config.focus[1]))),
-                })}
+                style={{
+                  transition: "opacity 0.3s",
+                  backgroundColor: "transparent",
+                  paddingLeft: 4,
+                  paddingRight: 4,
+                  paddingBottom: index === sourceCode.length - 1 ? 4 : 0,
+                  paddingTop: index === 0 ? 4 : 0,
+                  ...(config?.replaces && amountsAdded.includes(index)
+                    ? {
+                        animation: "slide-left 0.3s linear forwards",
+                      }
+                    : {}),
+                  ...(config?.focus !== undefined &&
+                  ((typeof config?.focus === "number" &&
+                    index !== config.focus) ||
+                    (Array.isArray(config?.focus) &&
+                      !config?.focus.some((f) => {
+                        if (Array.isArray(f)) {
+                          return index >= f[0] && index <= f[1];
+                        } else if (typeof f === "number") {
+                          return index === f;
+                        }
+                      })))
+                    ? {
+                        opacity: 0.4,
+                      }
+                    : {}),
+                }}
               >
                 <div
                   dangerouslySetInnerHTML={{
@@ -111,7 +137,9 @@ export const CodeTour = (props: CodeTourProps) => {
                       language: sourceLanguage,
                     }).value,
                   }}
-                  className="leading-7"
+                  style={{
+                    lineHeight: "28px",
+                  }}
                 />
               </pre>
             </div>
@@ -122,30 +150,66 @@ export const CodeTour = (props: CodeTourProps) => {
   }, [currentStep, defaultSourceCode, language]);
 
   return (
-    <div className="h-full p-4 md:p-6 bg-v2-green-dark">
-      <div className="bottom-0 py-4 md:py-6 left-0 !w-full flex justify-center">
+    <div style={{ maxWidth: "100%", padding: 24 }}>
+      <div
+        style={{
+          display: "flex",
+          gap: 24,
+          justifyContent: "center",
+          paddingBottom: 24,
+        }}
+      >
         <button
-          className="bg-white p-2 flex justify-center items-center"
+          style={{
+            backgroundColor: "#00DBC0",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            padding: 8,
+          }}
           onClick={decreaseStepIndex}
         >
           <Icon
             icon="solar:arrow-left-line-duotone"
-            className="!text-v2-green-dark text-2xl"
+            style={{
+              fontSize: "24px",
+              color: "#15172E",
+            }}
           />
-        </button>{" "}
+        </button>
         <button
-          className="bg-white p-2 flex justify-center items-center"
+          style={{
+            backgroundColor: "#00DBC0",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            padding: 8,
+          }}
           onClick={increaseStepIndex}
         >
           <Icon
             icon="solar:arrow-right-line-duotone"
-            className="!text-v2-green-dark text-2xl"
+            style={{
+              fontSize: "24px",
+              color: "#15172E",
+            }}
           />
         </button>
       </div>
 
-      <div className="h-full overflow-auto">
-        <div className="bg-[#011627] w-max min-w-full p-4">{codeToRender}</div>
+      <div
+        style={{ maxWidth: "100%", boxSizing: "border-box", overflow: "auto" }}
+      >
+        <div
+          style={{
+            backgroundColor: "#15172E",
+            width: "max-content",
+            minWidth: "100%",
+            padding: 16,
+          }}
+        >
+          {codeToRender}
+        </div>
       </div>
     </div>
   );
