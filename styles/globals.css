@@ -66,10 +66,8 @@ table.nx-block td {
 @keyframes slide-left {
   0% {
     transform: translateX(8px);
-    opacity: 0;
   }
   100% {
     transform: translateX(0px);
-    opacity: 1;
   }
 }
