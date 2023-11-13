@@ -21,7 +21,9 @@ export default function Home() {
           language="javascript"
           steps={[
             {},
-            { focus: [3, 5] },
+            {
+              focus: [0, [3, 5]],
+            },
             {
               focus: 4,
               replace: {

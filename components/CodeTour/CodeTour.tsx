@@ -10,7 +10,7 @@ import { useCallback } from "react";
 interface CodeStep {
   stepName?: string;
   sourceCode?: string;
-  focus?: number | [number, number];
+  focus?: number | ([number, number] | number)[];
   replace?: {
     line: number;
     values: string;
@@ -75,10 +75,14 @@ export const CodeTour = (props: CodeTourProps) => {
         }
       : undefined;
 
+    let amountsAdded = -1;
+
     if (config?.replace) {
       const newLines = [...sourceCode];
       newLines[config.replace.line] = config.replace.values;
       sourceCode = newLines.join("\n").split("\n");
+
+      amountsAdded = config.replace.values.split("\n").length;
     }
 
     return (
@@ -91,7 +95,16 @@ export const CodeTour = (props: CodeTourProps) => {
               id={line}
             >
               <pre
-                style={{ transition: "opacity 0.3s" }}
+                style={{
+                  transition: "opacity 0.3s",
+                  ...(config?.replace &&
+                  index >= config.replace.line &&
+                  index <= config.replace.line - 1 + amountsAdded
+                    ? {
+                        animation: "slide-left 0.3s linear forwards",
+                      }
+                    : {}),
+                }}
                 className={cx("!py-0 !px-1 md:!px-2 !bg-transparent", {
                   "!pb-1 md:!pb-2": index === sourceCode.length - 1,
                   "!pt-1 md:!pt-2": index === 0,
@@ -101,8 +114,13 @@ export const CodeTour = (props: CodeTourProps) => {
                     ((typeof config?.focus === "number" &&
                       index !== config.focus) ||
                       (Array.isArray(config?.focus) &&
-                        config?.focus.length === 2 &&
-                        (index < config.focus[0] || index > config.focus[1]))),
+                        !config?.focus.some((f) => {
+                          if (Array.isArray(f)) {
+                            return index >= f[0] && index <= f[1];
+                          } else if (typeof f === "number") {
+                            return index === f;
+                          }
+                        }))),
                 })}
               >
                 <div
