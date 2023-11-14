@@ -1,11 +1,14 @@
 import { Icon } from "@iconify/react";
-import { useEffect, useState } from "react";
+import {
+  useEffect,
+  useState,
+  useMemo,
+  useCallback,
+  CSSProperties,
+} from "react";
 
 import hljs from "highlight.js/lib/common";
-import { useMemo } from "react";
 import { HighlightOptions } from "highlight.js";
-import { useCallback } from "react";
-import { CSSProperties } from "react";
 
 interface CodeStep {
   stepName?: string;
