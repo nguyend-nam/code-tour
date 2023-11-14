@@ -63,7 +63,7 @@ export default function Home() {
             </div>
             <Brand />
           </div>
-          <button className="bg-gray-50 hover:bg-gray-100 h-10 py-1 px-4 text-gray-500 text-base">
+          <button className="bg-gray-100 hover:bg-gray-200 h-10 py-1 px-4 text-gray-600 text-sm">
             Docs
           </button>
         </div>
@@ -96,22 +96,25 @@ export default function Home() {
               </div>
 
               <div className="h-[72px] md:h-[108px] absolute right-0 bottom-0 w-full flex items-stretch justify-end">
-                <button className="p-4 hidden md:flex justify-center items-center w-[108px] bg-white font-semibold text-v2-blue-dark">
+                <a
+                  href="#demo"
+                  className="cursor-pointer p-4 hidden md:flex justify-center items-center w-[108px] bg-white font-semibold text-v2-blue-dark"
+                >
                   <Icon
                     icon="solar:arrow-down-line-duotone"
                     className="text-3xl shrink-0"
                   />
-                </button>
+                </a>
 
                 <div className="flex w-full md:w-3/4 lg:w-3/5">
-                  <button className="w-1/2 p-6 md:p-10 bg-v2-green-normal font-semibold text-v2-blue-dark flex items-center gap-2">
+                  <button className="cursor-pointer w-1/2 p-6 md:p-10 bg-v2-green-normal font-semibold text-v2-blue-dark flex items-center gap-2">
                     <Icon
                       icon="solar:arrow-right-line-duotone"
                       className="text-2xl shrink-0"
                     />
                     <span className="text-base md:text-lg">Get Started</span>
                   </button>
-                  <button className="w-1/2 p-6 md:p-10 bg-slate-800 font-semibold text-lg text-v2-green-normal flex items-center gap-2">
+                  <button className="cursor-pointer w-1/2 p-6 md:p-10 bg-slate-800 font-semibold text-lg text-v2-green-normal flex items-center gap-2">
                     <Icon icon="uim:github" className="text-2xl shrink-0" />
                     <span className="text-base md:text-lg hidden md:block">
                       View on GitHub
@@ -126,10 +129,14 @@ export default function Home() {
           </div>
         </section>
 
-        <div className="h-screen flex justify-center items-center bg-v2-purple-normal">
+        <div
+          id="demo"
+          className="h-screen flex justify-center items-center bg-v2-purple-normal"
+        >
           <CodeTour
             defaultSourceCode={str}
             language="javascript"
+            codeContainerClassName="md:!w-[349px]"
             steps={[
               {},
               {
@@ -178,6 +185,51 @@ export default function Home() {
                     line: 4,
                     values:
                       "    dolor = elit(dolor, 4)\n    dolor = elit(dolor, 5)",
+                  },
+                ],
+              },
+              {
+                focus: [3, 6],
+                replaces: [
+                  {
+                    line: 4,
+                    values:
+                      "    dolor = elit(dolor, 4)\n    dolor = elit(dolor, 5)",
+                  },
+                ],
+              },
+              {
+                focus: [3, 6],
+                replaces: [
+                  {
+                    line: 4,
+                    values:
+                      "    dolor = elit(dolor, 4)\n    dolor = elit(dolor, 5)",
+                  },
+                  {
+                    line: 3,
+                    values: "  do {",
+                  },
+                  {
+                    line: 6,
+                    values: "  } while (++consectetur < amet);",
+                  },
+                ],
+              },
+              {
+                replaces: [
+                  {
+                    line: 4,
+                    values:
+                      "    dolor = elit(dolor, 4)\n    dolor = elit(dolor, 5)",
+                  },
+                  {
+                    line: 3,
+                    values: "  do {",
+                  },
+                  {
+                    line: 6,
+                    values: "  } while (++consectetur < amet);",
                   },
                 ],
               },

@@ -1,10 +1,14 @@
 import { Icon } from "@iconify/react";
-import { useEffect, useState } from "react";
+import {
+  useEffect,
+  useState,
+  useMemo,
+  useCallback,
+  CSSProperties,
+} from "react";
 
 import hljs from "highlight.js/lib/common";
-import { useMemo } from "react";
 import { HighlightOptions } from "highlight.js";
-import { useCallback } from "react";
 
 interface CodeStep {
   stepName?: string;
@@ -21,10 +25,35 @@ interface CodeTourProps {
   defaultSourceCode: string;
   language: HighlightOptions["language"];
   steps?: CodeStep[];
+  className?: string;
+  style?: CSSProperties;
+  navigationClassName?: string;
+  navigationStyle?: CSSProperties;
+  navigationButtonClassName?: string;
+  navigationButtonStyle?: CSSProperties;
+  codeContainerClassName?: string;
+  codeContainerStyle?: CSSProperties;
+  codeLineClassName?: string;
+  codeLineStyle?: CSSProperties;
 }
 
 export const CodeTour = (props: CodeTourProps) => {
-  const { defaultSourceCode, language, steps = [] } = props;
+  const {
+    defaultSourceCode,
+    language,
+    steps = [],
+
+    className,
+    style,
+    navigationClassName,
+    navigationStyle,
+    navigationButtonClassName,
+    navigationButtonStyle,
+    codeContainerClassName,
+    codeContainerStyle,
+    codeLineClassName,
+    codeLineStyle,
+  } = props;
   const [stepIndex, setStepIndex] = useState(0);
 
   const increaseStepIndex = useCallback(() => {
@@ -98,7 +127,9 @@ export const CodeTour = (props: CodeTourProps) => {
                 width: "max-content",
                 color: "#fff",
                 transition: "all 0.3s",
+                ...codeLineStyle,
               }}
+              className={codeLineClassName}
               id={line}
             >
               <pre
@@ -147,17 +178,28 @@ export const CodeTour = (props: CodeTourProps) => {
         })}
       </>
     );
-  }, [currentStep, defaultSourceCode, language]);
+  }, [
+    codeLineClassName,
+    codeLineStyle,
+    currentStep,
+    defaultSourceCode,
+    language,
+  ]);
 
   return (
-    <div style={{ maxWidth: "100%", padding: 24 }}>
+    <div
+      style={{ maxWidth: "100%", padding: 24, ...style }}
+      className={className}
+    >
       <div
         style={{
           display: "flex",
           gap: 24,
           justifyContent: "center",
           paddingBottom: 24,
+          ...navigationStyle,
         }}
+        className={navigationClassName}
       >
         <button
           style={{
@@ -166,7 +208,9 @@ export const CodeTour = (props: CodeTourProps) => {
             justifyContent: "center",
             alignItems: "center",
             padding: 8,
+            ...navigationButtonStyle,
           }}
+          className={navigationButtonClassName}
           onClick={decreaseStepIndex}
         >
           <Icon
@@ -184,7 +228,9 @@ export const CodeTour = (props: CodeTourProps) => {
             justifyContent: "center",
             alignItems: "center",
             padding: 8,
+            ...navigationButtonStyle,
           }}
+          className={navigationButtonClassName}
           onClick={increaseStepIndex}
         >
           <Icon
@@ -198,7 +244,13 @@ export const CodeTour = (props: CodeTourProps) => {
       </div>
 
       <div
-        style={{ maxWidth: "100%", boxSizing: "border-box", overflow: "auto" }}
+        style={{
+          maxWidth: "100%",
+          boxSizing: "border-box",
+          overflow: "auto",
+          ...codeContainerStyle,
+        }}
+        className={codeContainerClassName}
       >
         <div
           style={{
