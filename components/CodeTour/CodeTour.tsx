@@ -6,11 +6,12 @@ import {
   useCallback,
   CSSProperties,
 } from "react";
+import { insertByIndex } from "../../utils";
 
 import hljs from "highlight.js/lib/common";
 import { HighlightOptions } from "highlight.js";
 
-interface CodeStep {
+export interface CodeStepConfig {
   stepName?: string;
   sourceCode?: string;
   focus?: number | ([number, number] | number)[];
@@ -18,13 +19,17 @@ interface CodeStep {
     line: number;
     values: string;
   }[];
+  inserts?: {
+    line: number;
+    values: string;
+  }[];
   language?: HighlightOptions["language"];
 }
 
-interface CodeTourProps {
+export interface CodeTourProps {
   defaultSourceCode: string;
   language: HighlightOptions["language"];
-  steps?: CodeStep[];
+  steps?: CodeStepConfig[];
   className?: string;
   style?: CSSProperties;
   navigationClassName?: string;
@@ -93,44 +98,59 @@ export const CodeTour = (props: CodeTourProps) => {
   }, []);
 
   const codeToRender = useMemo(() => {
-    let sourceCode = (currentStep?.sourceCode || defaultSourceCode).split("\n");
+    let sourceCodeToDisplay = (currentStep?.sourceCode || defaultSourceCode)
+      .split("\n")
+      .map((line) => ({ value: line, animated: false }));
     const sourceLanguage = currentStep?.language || language;
 
     const config = currentStep
       ? {
           focus: currentStep?.focus,
           replaces: currentStep?.replaces,
+          inserts: currentStep?.inserts,
         }
       : undefined;
 
-    let amountsAdded: number[] = [];
+    if (config?.inserts && config?.inserts.length > 0) {
+      const mappedInserts = config.inserts.map((insert) => ({
+        index: insert.line,
+        value: insert.values,
+      }));
+
+      sourceCodeToDisplay = insertByIndex(
+        sourceCodeToDisplay,
+        mappedInserts
+          .map((insert) => ({
+            index: insert.index,
+            value: { value: insert.value, animated: true },
+          }))
+          .reverse()
+      );
+    }
 
     if (config?.replaces && config?.replaces.length > 0) {
       config.replaces.forEach((replace) => {
-        const newLines = [...sourceCode];
-        newLines[replace.line] = replace.values;
-        sourceCode = newLines.join("\n").split("\n");
-
-        for (let i = 0; i < replace.values.split("\n").length; i++) {
-          amountsAdded.push(replace.line + i);
-        }
+        const newLines = [...sourceCodeToDisplay];
+        newLines[replace.line] = { value: replace.values, animated: true };
+        // sourceCodeToDisplay = newLines.join("\n").split("\n");
+        sourceCodeToDisplay = newLines;
       });
     }
 
     return (
       <>
-        {sourceCode.map((line, index) => {
+        {sourceCodeToDisplay.map((line, index) => {
           return (
             <div
               key={index}
               style={{
                 width: "max-content",
-                color: "#fff",
-                transition: "all 0.3s",
+                color: "#FFF",
+                transition: "opacity 0.3s",
                 ...codeLineStyle,
               }}
               className={codeLineClassName}
-              id={line}
+              id={line.value}
             >
               <pre
                 style={{
@@ -138,9 +158,10 @@ export const CodeTour = (props: CodeTourProps) => {
                   backgroundColor: "transparent",
                   paddingLeft: 4,
                   paddingRight: 4,
-                  paddingBottom: index === sourceCode.length - 1 ? 4 : 0,
+                  paddingBottom:
+                    index === sourceCodeToDisplay.length - 1 ? 4 : 0,
                   paddingTop: index === 0 ? 4 : 0,
-                  ...(config?.replaces && amountsAdded.includes(index)
+                  ...(line.animated
                     ? {
                         animation: "slide-left 0.3s linear forwards",
                       }
@@ -164,7 +185,7 @@ export const CodeTour = (props: CodeTourProps) => {
               >
                 <div
                   dangerouslySetInnerHTML={{
-                    __html: hljs.highlight(line, {
+                    __html: hljs.highlight(line.value, {
                       language: sourceLanguage,
                     }).value,
                   }}
@@ -208,6 +229,8 @@ export const CodeTour = (props: CodeTourProps) => {
             justifyContent: "center",
             alignItems: "center",
             padding: 8,
+            height: 40,
+            width: 40,
             ...navigationButtonStyle,
           }}
           className={navigationButtonClassName}
@@ -228,6 +251,8 @@ export const CodeTour = (props: CodeTourProps) => {
             justifyContent: "center",
             alignItems: "center",
             padding: 8,
+            height: 40,
+            width: 40,
             ...navigationButtonStyle,
           }}
           className={navigationButtonClassName}

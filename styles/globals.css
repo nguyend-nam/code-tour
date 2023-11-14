@@ -21,8 +21,12 @@ a {
   box-sizing: border-box;
 }
 
+ul > li > a {
+  border-radius: 0 !important;
+}
+
 ul > li.active > a {
-  background-color: #03fba22f !important;
+  background-color: transparent !important;
 }
 
 ul > li.active > ul {
@@ -30,12 +34,12 @@ ul > li.active > ul {
 }
 
 ul > li.active > a > span.doc-sidebar-item {
-  color: #018383 !important;
+  color: #00DBC0 !important;
+  font-weight: 600 !important;
 }
 
 table.nx-block {
-  border: 1px solid #02a8a8 !important;
-  border-radius: 12px !important;
+  border: 1px solid #581EFF !important;
   scrollbar-gutter: unset !important;
 }
 
@@ -45,7 +49,7 @@ table.nx-block tr {
 
 table.nx-block tr th {
   border: none !important;
-  background-color: #02a8a8 !important;
+  background-color: #581EFF !important;
   color: #ffffff !important;
   max-width: unset !important;
   width: unset !important;
@@ -66,6 +70,27 @@ table.nx-block td {
 .section-container {
   max-width: 1440px;
   margin: 0 auto;
+}
+
+.nextra-nav-container nav {
+  max-width: 1488px;
+}
+
+.nx-text-primary-600 {
+  color: #581EFF !important;
+}
+
+.nx-border-primary-500 {
+  border-color: #581EFF !important;
+}
+
+input {
+  border-radius: 0px !important;
+}
+
+footer > div:nth-of-type(2) {
+  padding-top: 24px !important;
+  padding-bottom: 24px !important;
 }
 
 @keyframes slide-left {
