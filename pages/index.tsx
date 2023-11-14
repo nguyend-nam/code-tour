@@ -38,8 +38,8 @@ export const Brand = ({
 
 export default function Home() {
   const str = `function lorem(ipsum, dolor) {
-  const sit = "lorem ipsum"
-  dolor = elit(dolor, 3)
+  const sit = "lorem ipsum";
+  dolor = elit(dolor, 3);
   while (++consectetur < amet) {
     // TODO
   }
@@ -156,7 +156,7 @@ export default function Home() {
                 replaces: [
                   {
                     line: 4,
-                    values: "    dolor = elit(dolor, 4)",
+                    values: "    dolor = elit(dolor, 4);",
                   },
                 ],
               },
@@ -165,7 +165,7 @@ export default function Home() {
                 replaces: [
                   {
                     line: 4,
-                    values: "    dolor = elit(dolor, 4)\n    dolor",
+                    values: "    dolor = elit(dolor, 4);\n    dolor",
                   },
                 ],
               },
@@ -175,7 +175,7 @@ export default function Home() {
                   {
                     line: 4,
                     values:
-                      "    dolor = elit(dolor, 4)\n    dolor = elit(dolor, 5)",
+                      "    dolor = elit(dolor, 4);\n    dolor = elit(dolor, 5);",
                   },
                 ],
               },
@@ -184,7 +184,7 @@ export default function Home() {
                   {
                     line: 4,
                     values:
-                      "    dolor = elit(dolor, 4)\n    dolor = elit(dolor, 5)",
+                      "    dolor = elit(dolor, 4);\n    dolor = elit(dolor, 5);",
                   },
                 ],
               },
@@ -194,7 +194,7 @@ export default function Home() {
                   {
                     line: 4,
                     values:
-                      "    dolor = elit(dolor, 4)\n    dolor = elit(dolor, 5)",
+                      "    dolor = elit(dolor, 4);\n    dolor = elit(dolor, 5);",
                   },
                 ],
               },
@@ -204,7 +204,7 @@ export default function Home() {
                   {
                     line: 4,
                     values:
-                      "    dolor = elit(dolor, 4)\n    dolor = elit(dolor, 5)",
+                      "    dolor = elit(dolor, 4);\n    dolor = elit(dolor, 5);",
                   },
                   {
                     line: 3,
