@@ -1,0 +1,506 @@
+import { Tab, Tabs, Steps, Cards, Card } from "nextra-theme-docs";
+import { Icon } from "@iconify/react";
+
+# CodeTour
+
+## Example
+
+<iframe
+  src="/examples/example"
+  height={400}
+  width="100%"
+  className="mt-6 mb-6 border border-gray-200"
+/>
+
+<Tabs items={["index.tsx", "styles.css"]}>
+  <Tab>
+   
+```javascript filename="index.tsx" copy
+import { CodeTour } from "@nguyend-nam/code-tour";
+import "./styles.css";
+
+const str = `function lorem(ipsum, dolor) {
+  const sit = "lorem ipsum";
+  dolor = elit(dolor, 3);
+  
+  while (++consectetur < amet) {
+    // TODO
+  }
+}`;
+
+export default function CodeTourDefaultDemo() {
+  return (
+    <div className="layout">
+      <CodeTour
+        defaultSourceCode={str}
+        language="javascript"
+        steps={[
+          {},
+          {
+            focus: [0, [4, 6]],
+          },
+          {
+            focus: 5,
+            replaces: [
+              {
+                line: 5,
+                values: "    sit.eiusmod();",
+              },
+            ],
+          },
+          {
+            focus: 5,
+            replaces: [
+              {
+                line: 5,
+                values: '    sit.eiusmod("dolor sit amet");',
+              },
+            ],
+          },
+          {
+            focus: 6,
+            replaces: [
+              {
+                line: 5,
+                values: '    sit.eiusmod("dolor sit amet");',
+              },
+            ],
+            inserts: [
+              {
+                line: 6,
+                values: "    tempor();",
+              },
+            ],
+          },
+          {
+            focus: 6,
+            replaces: [
+              {
+                line: 5,
+                values: '    sit.eiusmod("dolor sit amet");',
+              },
+            ],
+            inserts: [
+              {
+                line: 6,
+                values: "    tempor(ipsum, adipiscing);",
+              },
+            ],
+          },
+          {
+            replaces: [
+              {
+                line: 5,
+                values: '    sit.eiusmod("dolor sit amet");',
+              },
+            ],
+            inserts: [
+              {
+                line: 6,
+                values: "    tempor(ipsum, adipiscing);",
+              },
+            ],
+          },
+        ]}
+      />
+    </div>
+  );
+}
+```
+
+  </Tab>
+  <Tab>
+
+```css filename="styles.css" copy
+.layout {
+  padding: 16px;
+}
+
+@media (max-width: 767px) {
+  .layout {
+    padding: 0;
+  }
+}
+```
+
+  </Tab>
+</Tabs>
+
+## Highlighting
+
+### Lines
+
+<iframe
+  src="/examples/highlight-lines"
+  height={400}
+  width="100%"
+  className="mt-6 mb-6 border border-gray-200"
+/>
+
+<Tabs items={["index.tsx", "styles.css"]}>
+  <Tab>
+   
+```javascript filename="index.tsx" copy
+import { CodeTour } from "@nguyend-nam/code-tour";
+import "./styles.css";
+
+const str = `function lorem(ipsum, dolor) {
+  const sit = "lorem ipsum";
+  dolor = elit(dolor, 3);
+  
+  while (++consectetur < amet) {
+    sit.eiusmod("dolor sit amet");
+  }
+}`;
+
+export default function CodeTourDefaultDemo() {
+  return (
+    <div className="layout">
+      <CodeTour
+        defaultSourceCode={str}
+        language="javascript"
+        steps={[
+          {
+            focus: 1,
+          },
+          {
+            focus: [1, 2],
+          },
+          {
+            focus: [1, 2, 5],
+          },
+        ]}
+      />
+    </div>
+  );
+}
+```
+
+  </Tab>
+  <Tab>
+
+```css filename="styles.css" copy
+.layout {
+  padding: 16px;
+}
+
+@media (max-width: 767px) {
+  .layout {
+    padding: 0;
+  }
+}
+```
+
+  </Tab>
+</Tabs>
+
+### Range
+
+<iframe
+  src="/examples/highlight-range"
+  height={400}
+  width="100%"
+  className="mt-6 mb-6 border border-gray-200"
+/>
+
+<Tabs items={["index.tsx", "styles.css"]}>
+  <Tab>
+   
+```javascript filename="index.tsx" copy
+import { CodeTour } from "@nguyend-nam/code-tour";
+import "./styles.css";
+
+const str = `function lorem(ipsum, dolor) {
+  const sit = "lorem ipsum";
+  dolor = elit(dolor, 3);
+  
+  while (++consectetur < amet) {
+    sit.eiusmod("dolor sit amet");
+  }
+}`;
+
+export default function CodeTourDefaultDemo() {
+  return (
+    <div className="layout">
+      <CodeTour
+        defaultSourceCode={str}
+        language="javascript"
+        steps={[
+          {
+            focus: [[4, 6]],
+          },
+        ]}
+      />
+    </div>
+  );
+}
+```
+
+  </Tab>
+  <Tab>
+
+```css filename="styles.css" copy
+.layout {
+  padding: 16px;
+}
+
+@media (max-width: 767px) {
+  .layout {
+    padding: 0;
+  }
+}
+```
+
+  </Tab>
+</Tabs>
+
+### Mixed
+
+<iframe
+  src="/examples/highlight-mixed"
+  height={400}
+  width="100%"
+  className="mt-6 mb-6 border border-gray-200"
+/>
+
+<Tabs items={["index.tsx", "styles.css"]}>
+  <Tab>
+   
+```javascript filename="index.tsx" copy
+import { CodeTour } from "@nguyend-nam/code-tour";
+import "./styles.css";
+
+const str = `function lorem(ipsum, dolor) {
+  const sit = "lorem ipsum";
+  dolor = elit(dolor, 3);
+  
+  while (++consectetur < amet) {
+    sit.eiusmod("dolor sit amet");
+  }
+}`;
+
+export default function CodeTourDefaultDemo() {
+  return (
+    <div className="layout">
+      <CodeTour
+        defaultSourceCode={str}
+        language="javascript"
+        steps={[
+          {
+            focus: [0, [4, 6]],
+          },
+        ]}
+      />
+    </div>
+  );
+}
+```
+
+  </Tab>
+  <Tab>
+
+```css filename="styles.css" copy
+.layout {
+  padding: 16px;
+}
+
+@media (max-width: 767px) {
+  .layout {
+    padding: 0;
+  }
+}
+```
+
+  </Tab>
+</Tabs>
+
+## Inserting
+
+<iframe
+  src="/examples/inserting"
+  height={400}
+  width="100%"
+  className="mt-6 mb-6 border border-gray-200"
+/>
+
+<Tabs items={["index.tsx", "styles.css"]}>
+  <Tab>
+   
+```javascript filename="index.tsx" copy
+import { CodeTour } from "@nguyend-nam/code-tour";
+import "./styles.css";
+
+const str = `function lorem(ipsum, dolor) {
+}`;
+
+export default function CodeTourDefaultDemo() {
+  return (
+    <div className="layout">
+      <CodeTour
+        defaultSourceCode={str}
+        language="javascript"
+        steps={[
+          {},
+          {
+            inserts: [
+              {
+                line: 1,
+                values: '  const sit = "lorem ipsum";',
+              },
+            ],
+          },
+          {
+            inserts: [
+              {
+                line: 1,
+                values: '  const sit = "lorem ipsum";',
+              },
+              {
+                line: 1,
+                values: '  dolor = elit(dolor, 3);',
+              },
+            ],
+          },
+        ]}
+      />
+    </div>
+  );
+}
+```
+
+  </Tab>
+  <Tab>
+
+```css filename="styles.css" copy
+.layout {
+  padding: 16px;
+}
+
+@media (max-width: 767px) {
+  .layout {
+    padding: 0;
+  }
+}
+```
+
+  </Tab>
+</Tabs>
+
+> **Note**: In the final step of the provided example, it's important to note that the algorithm simultaneously places all inserted lines at their respective indexes in the source code. Consequently, if multiple lines are inserted at the same index, they will be positioned together before the line that originally occupied that index. For instance, in the given example, both new lines are inserted at index 1, resulting in their placement before the line containing `}` (the original line at index 2).
+
+## Replacing
+
+<iframe
+  src="/examples/replacing"
+  height={400}
+  width="100%"
+  className="mt-6 mb-6 border border-gray-200"
+/>
+
+<Tabs items={["index.tsx", "styles.css"]}>
+  <Tab>
+   
+```javascript filename="index.tsx" copy
+import { CodeTour } from "@nguyend-nam/code-tour";
+import "./styles.css";
+
+const str = `function lorem(ipsum, dolor) {
+  const sit = "lorem ipsum";
+  dolor = elit(dolor, 3);
+  
+  while (++consectetur < amet) {
+    // TODO
+  }
+}`;
+
+export default function CodeTourDefaultDemo() {
+  return (
+    <div className="layout">
+      <CodeTour
+        defaultSourceCode={str}
+        language="javascript"
+        steps={[
+          {},
+          {
+            focus: [4, 6],
+          },
+          {
+            focus: [4, 6],
+            replaces: [
+              {
+                line: 4,
+                values: "  do {",
+              },
+              {
+                line: 6,
+                values: "  } while (++consectetur < amet);",
+              },
+            ],
+          },
+          {
+            replaces: [
+              {
+                line: 4,
+                values: "  do {",
+              },
+              {
+                line: 6,
+                values: "  } while (++consectetur < amet);",
+              },
+            ],
+          },
+        ]}
+      />
+    </div>
+  );
+}
+```
+
+  </Tab>
+  <Tab>
+
+```css filename="styles.css" copy
+.layout {
+  padding: 16px;
+}
+
+@media (max-width: 767px) {
+  .layout {
+    padding: 0;
+  }
+}
+```
+
+  </Tab>
+</Tabs>
+
+## APIs
+
+### Step
+
+| Name           | Type                                        | Default | Description                                                                                                  | Required |
+| -------------- | ------------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------ | -------- |
+| **stepName**   | `string`                                    |         | The name of that specific step                                                                               |          |
+| **sourceCode** | `string`                                    |         | The source code of that specific step, if not set, the step takes the `defaultSourceCode` from the component |          |
+| **focus**      | `number \| ([number, number] \| number)[];` |         | The lines or group of lines you want to highlight                                                            |          |
+| **replaces**   | `{ line: number; values: string; }[]`       |         | The lines you want to replace, and the values you want them to be                                            |          |
+| **inserts**    | `{ line: number; values: string; }[]`       |         | The lines you want to insert, and the values you want them to be                                             |          |
+| **language**   | `string`                                    |         | The programming language of that specific step, if not set, the step takes the `language` from the component |          |
+
+### Component
+
+| Name                          | Type            | Default | Description                                                | Required |
+| ----------------------------- | --------------- | ------- | ---------------------------------------------------------- | -------- |
+| **defaultSourceCode**         | `string`        |         | The source code you want to show                           | &check;  |
+| **language**                  | `string`        |         | The programming language of the source code                | &check;  |
+| **steps**                     | `string`        |         | The list of [Step](#step)s                                 |          |
+| **className**                 | `string`        |         | The classes you want to apply to the component             |          |
+| **style**                     | `CSSProperties` |         | The styles you want to apply to the component              |          |
+| **navigationClassName**       | `string`        |         | The classes you want to apply to the navigation            |          |
+| **navigationStyle**           | `CSSProperties` |         | The styles you want to apply to the navigation             |          |
+| **navigationButtonClassName** | `string`        |         | The classes you want to apply to the navigation buttons    |          |
+| **navigationButtonStyle**     | `CSSProperties` |         | The styles you want to apply to the navigation buttons     |          |
+| **codeContainerClassName**    | `string`        |         | The classes you want to apply to the source code container |          |
+| **codeContainerStyle**        | `CSSProperties` |         | The styles you want to apply to the source code container  |          |
+| **codeLineClassName**         | `string`        |         | The classes you want to apply to the source code lines     |          |
+| **codeLineStyle**             | `CSSProperties` |         | The styles you want to apply to the source code lines      |          |

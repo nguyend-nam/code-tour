@@ -3,6 +3,7 @@ import Image from "next/image";
 import { CodeTour } from "../components/CodeTour";
 import cx from "classnames";
 import { Icon } from "@iconify/react";
+import { useRouter } from "next/router";
 
 export const Brand = ({
   theme = "dark",
@@ -36,22 +37,25 @@ export const Brand = ({
   );
 };
 
-export default function Home() {
-  const str = `function lorem(ipsum, dolor) {
+const str = `function lorem(ipsum, dolor) {
   const sit = "lorem ipsum";
   dolor = elit(dolor, 3);
+  
   while (++consectetur < amet) {
     // TODO
   }
 }`;
 
+export default function Home() {
+  const { push } = useRouter();
+
   return (
     <>
       <Head>
-        <title>Scrollery</title>
+        <title>Code Tour</title>
       </Head>
-      <header className="px-6 py-2.5 bg-white border-b border-gray-200 fixed w-screen top-0 z-30">
-        <div className="section-container flex gap-4 justify-between items-center">
+      <header className="px-6 py-2.5 h-[64px] bg-white border-b border-gray-200 fixed w-screen top-0 z-30 flex items-center">
+        <div className="flex-1 section-container flex gap-4 justify-between items-center">
           <div className="flex gap-2 items-center">
             <div className="h-10 w-10 relative overflow-hidden">
               <Image
@@ -63,16 +67,30 @@ export default function Home() {
             </div>
             <Brand />
           </div>
-          <button className="bg-gray-100 hover:bg-gray-200 h-10 py-1 px-4 text-gray-600 text-sm">
-            Docs
-          </button>
+
+          <div className="flex gap-2 items-center">
+            <button
+              className="bg-gray-100 hover:bg-gray-200 h-10 py-1 px-4 text-gray-600 text-sm"
+              onClick={() => push("/introduction")}
+            >
+              Docs
+            </button>
+            <a
+              href="https://github.com/nguyend-nam/code-tour"
+              target="_blank"
+              rel="noreferrer"
+              className="p-2 h-10 w-10"
+            >
+              <Icon icon="cib:github" className="text-[24px] text-black" />
+            </a>
+          </div>
         </div>
       </header>
 
       <main>
         <section className="pt-0">
           <div
-            className="h-screen min-h-[700px] w-screen pt-[61px]"
+            className="h-screen min-h-[700px] w-screen pt-[64px]"
             style={{
               backgroundImage: 'url("/hero.jpg")',
               backgroundSize: "cover",
@@ -98,7 +116,7 @@ export default function Home() {
               <div className="h-[72px] md:h-[108px] absolute right-0 bottom-0 w-full flex items-stretch justify-end">
                 <a
                   href="#demo"
-                  className="cursor-pointer p-4 hidden md:flex justify-center items-center w-[108px] bg-white font-semibold text-v2-blue-dark"
+                  className="cursor-pointer rounded-none p-4 hidden md:flex justify-center items-center w-[108px] bg-white font-semibold text-v2-blue-dark"
                 >
                   <Icon
                     icon="solar:arrow-down-line-duotone"
@@ -107,14 +125,22 @@ export default function Home() {
                 </a>
 
                 <div className="flex w-full md:w-3/4 lg:w-3/5">
-                  <button className="cursor-pointer w-1/2 p-6 md:p-10 bg-v2-green-normal font-semibold text-v2-blue-dark flex items-center gap-2">
+                  <button
+                    className="cursor-pointer w-1/2 p-6 md:p-10 bg-v2-green-normal font-semibold text-v2-blue-dark flex items-center gap-2"
+                    onClick={() => push("/introduction")}
+                  >
                     <Icon
                       icon="solar:arrow-right-line-duotone"
                       className="text-2xl shrink-0"
                     />
                     <span className="text-base md:text-lg">Get Started</span>
                   </button>
-                  <button className="cursor-pointer w-1/2 p-6 md:p-10 bg-slate-800 font-semibold text-lg text-v2-green-normal flex items-center gap-2">
+                  <a
+                    href="https://github.com/nguyend-nam/code-tour"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="cursor-pointer rounded-none w-1/2 p-6 md:p-10 bg-slate-800 font-semibold text-lg text-v2-green-normal flex items-center gap-2"
+                  >
                     <Icon icon="uim:github" className="text-2xl shrink-0" />
                     <span className="text-base md:text-lg hidden md:block">
                       View on GitHub
@@ -122,7 +148,7 @@ export default function Home() {
                     <span className="text-base md:text-lg md:hidden block">
                       GitHub
                     </span>
-                  </button>
+                  </a>
                 </div>
               </div>
             </div>
@@ -131,105 +157,136 @@ export default function Home() {
 
         <div
           id="demo"
-          className="h-screen flex justify-center items-center bg-v2-purple-normal"
+          className="h-screen min-h-[700px] flex justify-center items-center bg-v2-purple-normal"
         >
           <CodeTour
             defaultSourceCode={str}
             language="javascript"
-            codeContainerClassName="md:!w-[349px]"
+            codeContainerClassName="!max-w-[349px]"
             steps={[
               {},
               {
-                focus: [0, [3, 5]],
+                focus: [0, [4, 6]],
               },
               {
-                focus: 4,
+                focus: 5,
                 replaces: [
                   {
-                    line: 4,
+                    line: 5,
                     values: "    sit.eiusmod();",
                   },
                 ],
               },
               {
-                focus: 4,
+                focus: 5,
                 replaces: [
                   {
-                    line: 4,
+                    line: 5,
                     values: '    sit.eiusmod("dolor sit amet");',
                   },
                 ],
               },
               {
-                focus: 5,
+                focus: 6,
                 replaces: [
                   {
-                    line: 4,
-                    values: '    sit.eiusmod("dolor sit amet");\n    tempor();',
+                    line: 5,
+                    values: '    sit.eiusmod("dolor sit amet");',
+                  },
+                ],
+                inserts: [
+                  {
+                    line: 6,
+                    values: "    tempor();",
                   },
                 ],
               },
               {
-                focus: 5,
+                focus: 6,
                 replaces: [
                   {
-                    line: 4,
-                    values:
-                      '    sit.eiusmod("dolor sit amet");\n    tempor(ipsum, adipiscing);',
+                    line: 5,
+                    values: '    sit.eiusmod("dolor sit amet");',
+                  },
+                ],
+                inserts: [
+                  {
+                    line: 6,
+                    values: "    tempor(ipsum, adipiscing);",
                   },
                 ],
               },
               {
                 replaces: [
                   {
-                    line: 4,
-                    values:
-                      '    sit.eiusmod("dolor sit amet");\n    tempor(ipsum, adipiscing);',
+                    line: 5,
+                    values: '    sit.eiusmod("dolor sit amet");',
+                  },
+                ],
+                inserts: [
+                  {
+                    line: 6,
+                    values: "    tempor(ipsum, adipiscing);",
                   },
                 ],
               },
               {
-                focus: [3, 6],
+                focus: [4, 7],
                 replaces: [
                   {
-                    line: 4,
-                    values:
-                      '    sit.eiusmod("dolor sit amet");\n    tempor(ipsum, adipiscing);',
+                    line: 5,
+                    values: '    sit.eiusmod("dolor sit amet");',
+                  },
+                ],
+                inserts: [
+                  {
+                    line: 6,
+                    values: "    tempor(ipsum, adipiscing);",
                   },
                 ],
               },
               {
-                focus: [3, 6],
+                focus: [4, 7],
                 replaces: [
                   {
-                    line: 4,
-                    values:
-                      '    sit.eiusmod("dolor sit amet");\n    tempor(ipsum, adipiscing);',
+                    line: 5,
+                    values: '    sit.eiusmod("dolor sit amet");',
                   },
                   {
-                    line: 3,
+                    line: 4,
                     values: "  do {",
                   },
                   {
-                    line: 6,
+                    line: 7,
                     values: "  } while (++consectetur < amet);",
+                  },
+                ],
+                inserts: [
+                  {
+                    line: 6,
+                    values: "    tempor(ipsum, adipiscing);",
                   },
                 ],
               },
               {
                 replaces: [
                   {
-                    line: 4,
-                    values:
-                      '    sit.eiusmod("dolor sit amet");\n    tempor(ipsum, adipiscing);',
+                    line: 5,
+                    values: '    sit.eiusmod("dolor sit amet");',
                   },
                   {
-                    line: 3,
+                    line: 4,
                     values: "  do {",
                   },
                   {
-                    line: 6,
+                    line: 7,
                     values: "  } while (++consectetur < amet);",
+                  },
+                ],
+                inserts: [
+                  {
+                    line: 6,
+                    values: "    tempor(ipsum, adipiscing);",
                   },
                 ],
               },

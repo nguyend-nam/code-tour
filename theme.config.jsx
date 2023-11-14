@@ -1,25 +1,19 @@
-import { Logo } from "./public/Logo";
-
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
   logo: (
-    <header
-      style={{
-        color: "#02A8A8",
-        fontWeight: 700,
-        fontSize: 20,
-        display: "flex",
-        gap: 8,
-        alignItems: "center",
-      }}
-    >
-      <Logo width={36} height={36} />
-      Scrollery
-    </header>
+    <div className="h-10 w-10 relative overflow-hidden">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        layout="fill"
+        src="/logo.png"
+        alt="/logo.png"
+        className="object-cover absolute"
+      />
+    </div>
   ),
   logoLink: "/",
   project: {
-    link: "https://github.com/nguyend-nam/scrollery",
+    link: "https://github.com/nguyend-nam/code-tour",
   },
   footer: {
     text: (
@@ -31,7 +25,7 @@ export default {
         <a
           href="https://github.com/nguyend-nam"
           target="_blank"
-          style={{ fontWeight: 600, color: "#018383" }}
+          style={{ fontWeight: 600, color: "#15172E" }}
         >
           Nam Nguyen Dinh
         </a>

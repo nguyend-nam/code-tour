@@ -7,11 +7,11 @@ export default function Document() {
         <meta content="IE=edge" httpEquiv="X-UA-Compatible" />
         <meta name="twitter:card" content="summary" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="theme-color" content="#0DBBA5" />
-        <meta property="og:title" content="Scrollery" />
+        <meta name="theme-color" content="#00DBC0" />
+        <meta property="og:title" content="Code Tour" />
         <meta
           property="og:description"
-          content="React TypeScript library for effortlessly animating your websites on scroll."
+          content="Interactive code walkthroughs for the web."
         />
         <meta property="og:image" content="/og.png" />
 

@@ -1,84 +1,135 @@
-# Scrollery
+# Code Tour
 
-View on: [NPM](https://www.npmjs.com/package/@nguyend-nam/scrollery-ts) &bullet; [GitHub](https://github.com/nguyend-nam/scrollery)
+View on: [NPM](https://www.npmjs.com/package/@nguyend-nam/code-tour) &bullet; [GitHub](https://github.com/nguyend-nam/code-tour)
 
-[Official website](https://scrollery.js.org)
+[Official website](https://code-tour.js.org)
 
-Scrollery is a specialized UI library that empowers developers to effortlessly animate the contents as users scroll through websites. With Scrollery, you can create stunning, interactive, and engaging scroll animations that leave a lasting impression on your users.
-
-<image src="https://raw.githubusercontent.com/nguyend-nam/scrollery/main/public/preview.gif"></image>
+**Code Tour** is a ReactJS component designed for interactive code walkthroughs on the web. With Code Tour, seamlessly guide users through your codebase by passing code snippets, configuring steps to replace or highlight specific lines. Users can effortlessly navigate through each step using intuitive arrow buttons, transforming your code exploration into an engaging and dynamic slideshow experience.
 
 ## Installation
 
-```bash
-yarn add @nguyend-nam/scrollery-ts
-```
-
-or install using npm:
+Feel free to use the package manager of your choice:
 
 ```bash
-npm i @nguyend-nam/scrollery-ts
+# Using PNPM
+pnpm i @nguyend-nam/code-tour
+
+# Using NPM
+npm i @nguyend-nam/code-tour
+
+# Using Yarn
+yarn add @nguyend-nam/code-tour
 ```
 
 ## Usage
 
-### Import wrapper components
+### Importing `CodeTour`
 
 ```javascript
-import {
-  LinearlyScaledWrapper,
-  StackedWrapper,
-} from "@nguyend-nam/scrollery-ts";
+import { CodeTour } from "@nguyend-nam/code-tour";
 ```
 
 ### Using in the web
 
-Put the `img`s inside the wrappers with some custom style/className:
+Define your `CodeTour` component within your React component, specifying the steps you want to include. Each step corresponds to segment(s) of your codebase that you want to highlight or replace:
 
-```javascript
+```javascript copy
 // ...
 
-<LinearlyScaledWrapper className="w-full flex flex-col items-center gap-[800px] !mt-8 !mb-[800px]">
-  <img
-    src="/img/cat1.png"
-    className="w-full h-full object-cover"
-    alt="Coding cat"
-  />
-</LinearlyScaledWrapper>
+const str = `function lorem(ipsum, dolor) {
+  const sit = "lorem ipsum";
+  dolor = elit(dolor, 3);
+  
+  while (++consectetur < amet) {
+    // TODO
+  }
+}`;
 
-<StackedWrapper className="w-full space-y-[1400px] !mt-8 !mb-40 px-4">
-  <img
-    src="/img/cat2.png"
-    className="w-full h-full object-cover"
-    alt="Flexing cat"
-  />
-  <img
-    src="/img/cat3.png"
-    className="w-full h-full object-cover"
-    alt="Sitting cat"
-  />
-  <img
-    src="/img/cat4.png"
-    className="w-full h-full object-cover"
-    alt="Sleepy cat"
-  />
-</StackedWrapper>
+<CodeTour
+  defaultSourceCode={str}
+  language="javascript"
+  steps={[
+    {},
+    {
+      focus: [0, [4, 6]],
+    },
+    {
+      focus: 5,
+      replaces: [
+        {
+          line: 5,
+          values: "    sit.eiusmod();",
+        },
+      ],
+    },
+    {
+      focus: 5,
+      replaces: [
+        {
+          line: 5,
+          values: '    sit.eiusmod("dolor sit amet");',
+        },
+      ],
+    },
+    {
+      focus: 6,
+      replaces: [
+        {
+          line: 5,
+          values: '    sit.eiusmod("dolor sit amet");',
+        },
+      ],
+      inserts: [
+        {
+          line: 6,
+          values: "    tempor();",
+        },
+      ],
+    },
+    {
+      focus: 6,
+      replaces: [
+        {
+          line: 5,
+          values: '    sit.eiusmod("dolor sit amet");',
+        },
+      ],
+      inserts: [
+        {
+          line: 6,
+          values: "    tempor(ipsum, adipiscing);",
+        },
+      ],
+    },
+    {
+      replaces: [
+        {
+          line: 5,
+          values: '    sit.eiusmod("dolor sit amet");',
+        },
+      ],
+      inserts: [
+        {
+          line: 6,
+          values: "    tempor(ipsum, adipiscing);",
+        },
+      ],
+    },
+    // ...
+  ]}
+/>
 
 // ...
 ```
 
-### Preview
-
-<image src="https://raw.githubusercontent.com/nguyend-nam/scrollery/main/public/example.gif"></image>
-
 ## Official website & documentation
 
-- Official website: https://scrollery.js.org
-- Document: https://scrollery.js.org/introduction
+- Official website: https://code-tour.js.org
+- Document: https://code-tour.js.org/introduction
 
 ## Contributing
 
-Scrollery is an open-source project hosted on GitHub, and we encourage you to join us in shaping its future. Whether you have ideas for new features, want to report bugs, or are interested in improving the library's functionality, your contributions are highly valued. Visit our GitHub repository at https://github.com/nguyend-nam/scrollery to get involved and contribute to the project.
+Whether you have ideas for new features, want to report bugs, or are interested in improving the library's functionality, your contributions are highly valued. Visit our GitHub repository at https://github.com/nguyend-nam/code-tour to get involved and contribute to the project.
 
 ## License
 
