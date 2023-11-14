@@ -147,7 +147,7 @@ export default function Home() {
                 replaces: [
                   {
                     line: 4,
-                    values: "    dolor",
+                    values: "    sit.eiusmod();",
                   },
                 ],
               },
@@ -156,7 +156,7 @@ export default function Home() {
                 replaces: [
                   {
                     line: 4,
-                    values: "    dolor = elit(dolor, 4);",
+                    values: '    sit.eiusmod("dolor sit amet");',
                   },
                 ],
               },
@@ -165,7 +165,7 @@ export default function Home() {
                 replaces: [
                   {
                     line: 4,
-                    values: "    dolor = elit(dolor, 4);\n    dolor",
+                    values: '    sit.eiusmod("dolor sit amet");\n    tempor();',
                   },
                 ],
               },
@@ -175,7 +175,7 @@ export default function Home() {
                   {
                     line: 4,
                     values:
-                      "    dolor = elit(dolor, 4);\n    dolor = elit(dolor, 5);",
+                      '    sit.eiusmod("dolor sit amet");\n    tempor(ipsum, adipiscing);',
                   },
                 ],
               },
@@ -184,7 +184,7 @@ export default function Home() {
                   {
                     line: 4,
                     values:
-                      "    dolor = elit(dolor, 4);\n    dolor = elit(dolor, 5);",
+                      '    sit.eiusmod("dolor sit amet");\n    tempor(ipsum, adipiscing);',
                   },
                 ],
               },
@@ -194,7 +194,7 @@ export default function Home() {
                   {
                     line: 4,
                     values:
-                      "    dolor = elit(dolor, 4);\n    dolor = elit(dolor, 5);",
+                      '    sit.eiusmod("dolor sit amet");\n    tempor(ipsum, adipiscing);',
                   },
                 ],
               },
@@ -204,7 +204,7 @@ export default function Home() {
                   {
                     line: 4,
                     values:
-                      "    dolor = elit(dolor, 4);\n    dolor = elit(dolor, 5);",
+                      '    sit.eiusmod("dolor sit amet");\n    tempor(ipsum, adipiscing);',
                   },
                   {
                     line: 3,
@@ -221,7 +221,7 @@ export default function Home() {
                   {
                     line: 4,
                     values:
-                      "    dolor = elit(dolor, 4)\n    dolor = elit(dolor, 5)",
+                      '    sit.eiusmod("dolor sit amet");\n    tempor(ipsum, adipiscing);',
                   },
                   {
                     line: 3,
