@@ -13,8 +13,7 @@ import cx from "classnames";
 
 import hljs from "highlight.js/lib/common";
 import { HighlightOptions } from "highlight.js";
-
-import "highlight.js/styles/night-owl.css";
+import Head from "next/head";
 
 export interface CodeStepConfig {
   stepName?: string;
@@ -228,7 +227,13 @@ export const CodeTour = (props: CodeTourProps) => {
 
   return (
     <>
-      <style>{`
+      <Head>
+        {/* eslint-disable-next-line @next/next/no-css-tags */}
+        <link
+          rel="stylesheet"
+          href="https://unpkg.com/highlightjs@9.16.2/styles/night-owl.css"
+        />
+        <style>{`
         @keyframes slide-left {
           0% {
             transform: translateX(8px);
@@ -238,7 +243,8 @@ export const CodeTour = (props: CodeTourProps) => {
             transform: translateX(0px);
           }
         }
-      `}</style>
+        `}</style>
+      </Head>
 
       <div
         style={{ maxWidth: "100%", padding: 24, ...style }}
