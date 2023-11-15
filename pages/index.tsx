@@ -4,12 +4,13 @@ import { CodeTour } from "../components/CodeTour";
 import cx from "classnames";
 import { Icon } from "@iconify/react";
 import { useRouter } from "next/router";
+import { demoSourceCode, demoSteps } from "../constants/source-code";
 
 export const Brand = ({
   theme = "dark",
   className,
 }: {
-  theme?: "light" | "dark" | "primary-light";
+  theme?: "light" | "dark" | "primary-light" | "primary-dark";
   className?: string;
 }) => {
   return (
@@ -37,15 +38,6 @@ export const Brand = ({
   );
 };
 
-const str = `function lorem(ipsum, dolor) {
-  const sit = "lorem ipsum";
-  dolor = elit(dolor, 3);
-  
-  while (++consectetur < amet) {
-    // TODO
-  }
-}`;
-
 export default function Home() {
   const { push } = useRouter();
 
@@ -65,7 +57,7 @@ export default function Home() {
                 className="object-cover absolute"
               />
             </div>
-            <Brand />
+            <Brand className="hidden xs:block" />
           </div>
 
           <div className="flex gap-2 items-center">
@@ -90,7 +82,7 @@ export default function Home() {
       <main>
         <section className="pt-0">
           <div
-            className="h-screen min-h-[700px] w-screen pt-[64px]"
+            className="h-screen min-h-[700px] w-screen pt-[64px] bg-v2-blue-dark"
             style={{
               backgroundImage: 'url("/hero.jpg")',
               backgroundSize: "cover",
@@ -157,143 +149,112 @@ export default function Home() {
 
         <div
           id="demo"
-          className="h-screen min-h-[700px] flex justify-center items-center bg-v2-purple-normal"
+          className="h-screen min-h-[700px] flex gap-0 md:gap-8 flex-col lg:flex-row justify-center items-center bg-v2-purple-normal"
         >
           <CodeTour
-            defaultSourceCode={str}
+            defaultSourceCode={demoSourceCode}
             language="javascript"
-            codeContainerClassName="!max-w-[349px]"
-            steps={[
-              {},
-              {
-                focus: [0, [4, 6]],
-              },
-              {
-                focus: 5,
-                replaces: [
-                  {
-                    line: 5,
-                    values: "    sit.eiusmod();",
-                  },
-                ],
-              },
-              {
-                focus: 5,
-                replaces: [
-                  {
-                    line: 5,
-                    values: '    sit.eiusmod("dolor sit amet");',
-                  },
-                ],
-              },
-              {
-                focus: 6,
-                replaces: [
-                  {
-                    line: 5,
-                    values: '    sit.eiusmod("dolor sit amet");',
-                  },
-                ],
-                inserts: [
-                  {
-                    line: 6,
-                    values: "    tempor();",
-                  },
-                ],
-              },
-              {
-                focus: 6,
-                replaces: [
-                  {
-                    line: 5,
-                    values: '    sit.eiusmod("dolor sit amet");',
-                  },
-                ],
-                inserts: [
-                  {
-                    line: 6,
-                    values: "    tempor(ipsum, adipiscing);",
-                  },
-                ],
-              },
-              {
-                replaces: [
-                  {
-                    line: 5,
-                    values: '    sit.eiusmod("dolor sit amet");',
-                  },
-                ],
-                inserts: [
-                  {
-                    line: 6,
-                    values: "    tempor(ipsum, adipiscing);",
-                  },
-                ],
-              },
-              {
-                focus: [4, 7],
-                replaces: [
-                  {
-                    line: 5,
-                    values: '    sit.eiusmod("dolor sit amet");',
-                  },
-                ],
-                inserts: [
-                  {
-                    line: 6,
-                    values: "    tempor(ipsum, adipiscing);",
-                  },
-                ],
-              },
-              {
-                focus: [4, 7],
-                replaces: [
-                  {
-                    line: 5,
-                    values: '    sit.eiusmod("dolor sit amet");',
-                  },
-                  {
-                    line: 4,
-                    values: "  do {",
-                  },
-                  {
-                    line: 7,
-                    values: "  } while (++consectetur < amet);",
-                  },
-                ],
-                inserts: [
-                  {
-                    line: 6,
-                    values: "    tempor(ipsum, adipiscing);",
-                  },
-                ],
-              },
-              {
-                replaces: [
-                  {
-                    line: 5,
-                    values: '    sit.eiusmod("dolor sit amet");',
-                  },
-                  {
-                    line: 4,
-                    values: "  do {",
-                  },
-                  {
-                    line: 7,
-                    values: "  } while (++consectetur < amet);",
-                  },
-                ],
-                inserts: [
-                  {
-                    line: 6,
-                    values: "    tempor(ipsum, adipiscing);",
-                  },
-                ],
-              },
-            ]}
+            codeContainerClassName="!w-screen lg:!w-[465px]"
+            steps={demoSteps}
           />
+          <div className="p-6 max-w-full lg:max-w-sm">
+            <h2 className="text-2xl md:text-3xl font-semibold mb-4 text-v2-green-normal">
+              Sequential Navigation Controls
+            </h2>
+            <p className="text-base md:text-lg text-v2-green-normal">
+              <u>Interactive</u> and <u>intuitive</u> walkthrough controls for
+              navigating through steps sequentially. Use the left and right
+              navigation options to explore your content effortlessly.
+            </p>
+          </div>
+        </div>
+
+        <div
+          id="demo"
+          className="h-screen min-h-[700px] flex gap-0 md:gap-8 flex-col lg:flex-row-reverse justify-center items-center bg-slate-800"
+        >
+          <CodeTour
+            defaultSourceCode={demoSourceCode}
+            language="javascript"
+            codeContainerClassName="!w-screen lg:!w-[345px]"
+            showStepNameButtons
+            showNavigationBar={false}
+            steps={[...demoSteps.slice(0, 7)]}
+          />
+          <div className="p-6 max-w-full lg:max-w-sm">
+            <h2 className="text-2xl md:text-3xl font-semibold mb-4 text-white">
+              Step Selection Buttons
+            </h2>
+            <p className="text-base md:text-lg text-white">
+              Clear <u>step-by-step</u> tutorial controls with a list of
+              buttons. Easily select and navigate to specific steps for a
+              detailed and customized exploration of your content.
+            </p>
+          </div>
         </div>
       </main>
+
+      <footer className="p-6 bg-gray-50">
+        <div className="section-container">
+          <div className="flex justify-between items-start md:items-center gap-6 pt-8 pb-14 flex-col md:flex-row">
+            <div className="flex gap-2.5 items-center">
+              <div className="h-12 md:h-14 w-12 md:w-14 relative overflow-hidden">
+                <Image
+                  layout="fill"
+                  src="/logo.png"
+                  alt="/logo.png"
+                  className="object-cover absolute"
+                />
+              </div>
+              <Brand theme="primary-dark" className="!text-3xl md:!text-4xl" />
+            </div>
+
+            <div className="flex gap-2">
+              <button
+                className="cursor-pointer rounded-none h-12 p-2 border border-v2-green-normal font-medium text-v2-blue-dark flex items-center justify-center gap-2"
+                onClick={() => push("/introduction")}
+              >
+                Get Started
+              </button>
+              <a
+                className="cursor-pointer rounded-none h-12 w-12 p-2 border border-v2-green-normal text-v2-blue-dark flex items-center justify-center gap-2"
+                href="https://www.npmjs.com/package/@nguyend-nam/code-tour"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <Icon icon="fa-brands:npm" className="text-2xl shrink-0" />
+              </a>
+              <a
+                href="https://github.com/nguyend-nam/code-tour"
+                className="cursor-pointer rounded-none h-12 w-12 p-2 border border-v2-green-normal text-v2-blue-dark flex items-center justify-center gap-2"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <Icon icon="fa-brands:github" className="text-2xl shrink-0" />
+              </a>
+            </div>
+          </div>
+
+          <div className="border-t border-gray-200 pt-6 text-center md:text-left">
+            <a
+              href="https://choosealicense.com/licenses/isc/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              ISC
+            </a>{" "}
+            ©{" "}
+            <a
+              href="https://github.com/nguyend-nam"
+              target="_blank"
+              rel="noreferrer"
+              className="text-v2-blue-dark font-semibold"
+            >
+              Nam Nguyen Dinh
+            </a>
+          </div>
+        </div>
+      </footer>
     </>
   );
 }

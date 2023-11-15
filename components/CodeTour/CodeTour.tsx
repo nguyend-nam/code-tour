@@ -5,8 +5,11 @@ import {
   useMemo,
   useCallback,
   CSSProperties,
+  Dispatch,
+  SetStateAction,
 } from "react";
 import { insertByIndex } from "../../utils";
+import cx from "classnames";
 
 import hljs from "highlight.js/lib/common";
 import { HighlightOptions } from "highlight.js";
@@ -30,6 +33,8 @@ export interface CodeTourProps {
   defaultSourceCode: string;
   language: HighlightOptions["language"];
   steps?: CodeStepConfig[];
+  showNavigationBar?: boolean;
+  showStepNameButtons?: boolean;
   className?: string;
   style?: CSSProperties;
   navigationClassName?: string;
@@ -40,6 +45,10 @@ export interface CodeTourProps {
   codeContainerStyle?: CSSProperties;
   codeLineClassName?: string;
   codeLineStyle?: CSSProperties;
+  stepButtonsContainerClassName?: string;
+  stepButtonsContainerStyle?: CSSProperties;
+  stepButtonClassName?: string;
+  stepButtonStyle?: CSSProperties;
 }
 
 export const CodeTour = (props: CodeTourProps) => {
@@ -47,7 +56,8 @@ export const CodeTour = (props: CodeTourProps) => {
     defaultSourceCode,
     language,
     steps = [],
-
+    showStepNameButtons = false,
+    showNavigationBar = true,
     className,
     style,
     navigationClassName,
@@ -58,6 +68,10 @@ export const CodeTour = (props: CodeTourProps) => {
     codeContainerStyle,
     codeLineClassName,
     codeLineStyle,
+    stepButtonsContainerClassName,
+    stepButtonsContainerStyle,
+    stepButtonClassName,
+    stepButtonStyle,
   } = props;
   const [stepIndex, setStepIndex] = useState(0);
 
@@ -73,25 +87,29 @@ export const CodeTour = (props: CodeTourProps) => {
     }
   }, [stepIndex]);
 
-  useEffect(() => {
-    const onKeyPress = (event: KeyboardEvent) => {
-      if (["ArrowRight", "ArrowLeft"].includes(event.key)) {
-        if (event.key === "ArrowRight") {
-          increaseStepIndex();
-        } else {
-          decreaseStepIndex();
-        }
-      }
-    };
+  // useEffect(() => {
+  //   const onKeyPress = (event: KeyboardEvent) => {
+  //     if (["ArrowRight", "ArrowLeft"].includes(event.key)) {
+  //       if (event.key === "ArrowRight") {
+  //         increaseStepIndex();
+  //       } else {
+  //         decreaseStepIndex();
+  //       }
+  //     }
+  //   };
 
-    document.addEventListener("keydown", onKeyPress);
+  //   document.addEventListener("keydown", onKeyPress);
 
-    return () => {
-      document.removeEventListener("keydown", onKeyPress);
-    };
-  }, [decreaseStepIndex, increaseStepIndex]);
+  //   return () => {
+  //     document.removeEventListener("keydown", onKeyPress);
+  //   };
+  // }, [decreaseStepIndex, increaseStepIndex]);
 
   const currentStep = steps.length ? steps[stepIndex] : undefined;
+
+  const [lines, setLines] = useState(
+    (currentStep?.sourceCode || defaultSourceCode).split("\n").length
+  );
 
   useEffect(() => {
     hljs.highlightAll();
@@ -137,6 +155,8 @@ export const CodeTour = (props: CodeTourProps) => {
       });
     }
 
+    setLines((sourceCodeToDisplay || []).length);
+
     return (
       <>
         {sourceCodeToDisplay.map((line, index) => {
@@ -158,9 +178,6 @@ export const CodeTour = (props: CodeTourProps) => {
                   backgroundColor: "transparent",
                   paddingLeft: 4,
                   paddingRight: 4,
-                  paddingBottom:
-                    index === sourceCodeToDisplay.length - 1 ? 4 : 0,
-                  paddingTop: index === 0 ? 4 : 0,
                   ...(line.animated
                     ? {
                         animation: "slide-left 0.3s linear forwards",
@@ -212,81 +229,213 @@ export const CodeTour = (props: CodeTourProps) => {
       style={{ maxWidth: "100%", padding: 24, ...style }}
       className={className}
     >
-      <div
-        style={{
-          display: "flex",
-          gap: 24,
-          justifyContent: "center",
-          paddingBottom: 24,
-          ...navigationStyle,
-        }}
-        className={navigationClassName}
-      >
-        <button
-          style={{
-            backgroundColor: "#00DBC0",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            padding: 8,
-            height: 40,
-            width: 40,
-            ...navigationButtonStyle,
-          }}
-          className={navigationButtonClassName}
-          onClick={decreaseStepIndex}
-        >
-          <Icon
-            icon="solar:arrow-left-line-duotone"
-            style={{
-              fontSize: "24px",
-              color: "#15172E",
-            }}
-          />
-        </button>
-        <button
-          style={{
-            backgroundColor: "#00DBC0",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            padding: 8,
-            height: 40,
-            width: 40,
-            ...navigationButtonStyle,
-          }}
-          className={navigationButtonClassName}
-          onClick={increaseStepIndex}
-        >
-          <Icon
-            icon="solar:arrow-right-line-duotone"
-            style={{
-              fontSize: "24px",
-              color: "#15172E",
-            }}
-          />
-        </button>
-      </div>
+      {showNavigationBar ? (
+        <CodeTourNavigation
+          onPrevClick={decreaseStepIndex}
+          onNextClick={increaseStepIndex}
+          navigationStyle={navigationStyle}
+          navigationButtonStyle={navigationButtonStyle}
+          navigationButtonClassName={navigationButtonClassName}
+          navigationClassName={navigationClassName}
+        />
+      ) : null}
 
       <div
         style={{
-          maxWidth: "100%",
-          boxSizing: "border-box",
-          overflow: "auto",
-          ...codeContainerStyle,
+          display: "flex",
+          justifyContent: "center",
+          gap: 8,
+          alignItems: "center",
+          width: "100%",
         }}
-        className={codeContainerClassName}
       >
+        {showStepNameButtons ? (
+          <StepButtonsControl
+            lines={lines}
+            stepIndex={stepIndex}
+            setStepIndex={setStepIndex}
+            steps={steps}
+            stepButtonsContainerStyle={stepButtonsContainerStyle}
+            stepButtonsContainerClassName={stepButtonsContainerClassName}
+            stepButtonStyle={stepButtonStyle}
+            stepButtonClassName={stepButtonClassName}
+          />
+        ) : null}
+
         <div
           style={{
+            // maxWidth: "100%",
+            boxSizing: "border-box",
+            overflow: "auto",
             backgroundColor: "#15172E",
-            width: "max-content",
-            minWidth: "100%",
-            padding: 16,
+            flexGrow: 1,
+            ...codeContainerStyle,
           }}
+          className={codeContainerClassName}
         >
-          {codeToRender}
+          <div
+            style={{
+              width: "max-content",
+              minWidth: "100%",
+              padding: 16,
+            }}
+          >
+            {codeToRender}
+          </div>
         </div>
+      </div>
+    </div>
+  );
+};
+
+interface CodeTourNavigationProps {
+  onPrevClick: () => void;
+  onNextClick: () => void;
+  navigationStyle?: CSSProperties;
+  navigationClassName?: string;
+  navigationButtonStyle?: CSSProperties;
+  navigationButtonClassName?: string;
+}
+
+const CodeTourNavigation = ({
+  onPrevClick,
+  onNextClick,
+  navigationStyle,
+  navigationClassName,
+  navigationButtonStyle,
+  navigationButtonClassName,
+}: CodeTourNavigationProps) => {
+  return (
+    <div
+      style={{
+        display: "flex",
+        gap: 24,
+        justifyContent: "center",
+        paddingBottom: 24,
+        ...navigationStyle,
+      }}
+      className={navigationClassName}
+    >
+      <button
+        style={{
+          backgroundColor: "#00DBC0",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          padding: 8,
+          height: 40,
+          width: 40,
+          ...navigationButtonStyle,
+        }}
+        className={navigationButtonClassName}
+        onClick={onPrevClick}
+      >
+        <Icon
+          icon="solar:arrow-left-line-duotone"
+          style={{
+            fontSize: "24px",
+            color: "#15172E",
+          }}
+        />
+      </button>
+      <button
+        style={{
+          backgroundColor: "#00DBC0",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          padding: 8,
+          height: 40,
+          width: 40,
+          ...navigationButtonStyle,
+        }}
+        className={navigationButtonClassName}
+        onClick={onNextClick}
+      >
+        <Icon
+          icon="solar:arrow-right-line-duotone"
+          style={{
+            fontSize: "24px",
+            color: "#15172E",
+          }}
+        />
+      </button>
+    </div>
+  );
+};
+
+interface StepButtonsControlProps {
+  lines: number;
+  stepIndex: number;
+  setStepIndex: Dispatch<SetStateAction<number>>;
+  steps?: CodeStepConfig[];
+  stepButtonsContainerStyle?: CSSProperties;
+  stepButtonsContainerClassName?: string;
+  stepButtonStyle?: CSSProperties;
+  stepButtonClassName?: string;
+}
+
+const StepButtonsControl = ({
+  lines,
+  stepIndex,
+  setStepIndex,
+  steps = [],
+  stepButtonsContainerStyle,
+  stepButtonsContainerClassName,
+  stepButtonStyle,
+  stepButtonClassName,
+}: StepButtonsControlProps) => {
+  return (
+    <div
+      style={{
+        overflow: "auto",
+        flexShrink: 0,
+        height: `${lines * 28 + 32}px`,
+        ...stepButtonsContainerStyle,
+      }}
+      className={stepButtonsContainerClassName}
+    >
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "stretch",
+          gap: 8,
+        }}
+      >
+        {steps.map((step, index) => {
+          const stepName = step?.stepName ? step.stepName : `Step ${index + 1}`;
+
+          return (
+            <button
+              style={{
+                textAlign: "left",
+                padding: "4px 8px",
+                backgroundColor: stepIndex === index ? "#00DBC0" : "#FFF",
+                color: stepIndex === index ? "#FFF" : "#15172E",
+                width: 120,
+                borderRadius: 0,
+                border: "1px solid #E2E8F0",
+                boxSizing: "border-box",
+                ...stepButtonStyle,
+              }}
+              className={cx(
+                {
+                  "step-button--active": stepIndex === index,
+                },
+                stepButtonClassName
+              )}
+              title={stepName}
+              onClick={() => setStepIndex(index)}
+              key={
+                `Step ${index + 1}` +
+                (step?.stepName ? ` ${step.stepName}` : "")
+              }
+            >
+              {stepName}
+            </button>
+          );
+        })}
       </div>
     </div>
   );

@@ -10,6 +10,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      screens: {
+        'xs': '321px',
+      },
       colors: {
         v2: {
           green: {

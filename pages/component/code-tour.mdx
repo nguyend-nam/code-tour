@@ -28,7 +28,7 @@ const str = `function lorem(ipsum, dolor) {
   }
 }`;
 
-export default function CodeTourDefaultDemo() {
+export default function CodeTourDemo() {
   return (
     <div className="layout">
       <CodeTour
@@ -153,7 +153,7 @@ const str = `function lorem(ipsum, dolor) {
   }
 }`;
 
-export default function CodeTourDefaultDemo() {
+export default function CodeTourDemo() {
   return (
     <div className="layout">
       <CodeTour
@@ -219,7 +219,7 @@ const str = `function lorem(ipsum, dolor) {
   }
 }`;
 
-export default function CodeTourDefaultDemo() {
+export default function CodeTourDemo() {
   return (
     <div className="layout">
       <CodeTour
@@ -279,7 +279,7 @@ const str = `function lorem(ipsum, dolor) {
   }
 }`;
 
-export default function CodeTourDefaultDemo() {
+export default function CodeTourDemo() {
   return (
     <div className="layout">
       <CodeTour
@@ -333,7 +333,7 @@ import "./styles.css";
 const str = `function lorem(ipsum, dolor) {
 }`;
 
-export default function CodeTourDefaultDemo() {
+export default function CodeTourDemo() {
   return (
     <div className="layout">
       <CodeTour
@@ -413,7 +413,7 @@ const str = `function lorem(ipsum, dolor) {
   }
 }`;
 
-export default function CodeTourDefaultDemo() {
+export default function CodeTourDemo() {
   return (
     <div className="layout">
       <CodeTour
@@ -474,6 +474,262 @@ export default function CodeTourDefaultDemo() {
   </Tab>
 </Tabs>
 
+## Control
+
+### Navigation Bar
+
+<iframe
+  src="/examples/control-navigation"
+  height={400}
+  width="100%"
+  className="mt-6 mb-6 border border-gray-200"
+/>
+
+<Tabs items={["index.tsx", "styles.css"]}>
+  <Tab>
+   
+```javascript filename="index.tsx" copy
+import { CodeTour } from "@nguyend-nam/code-tour";
+import "./styles.css";
+
+const str = `function lorem(ipsum, dolor) {
+  const sit = "lorem ipsum";
+  dolor = elit(dolor, 3);
+  
+  while (++consectetur < amet) {
+    // TODO
+  }
+}`;
+
+export default function CodeTourDemo() {
+  return (
+    <div className="layout">
+      <CodeTour
+        defaultSourceCode={str}
+        language="javascript"
+        steps={[
+          {},
+          {
+            focus: [0, [4, 6]],
+          },
+          {
+            focus: 5,
+            replaces: [
+              {
+                line: 5,
+                values: "    sit.eiusmod();",
+              },
+            ],
+          },
+          {
+            focus: 5,
+            replaces: [
+              {
+                line: 5,
+                values: '    sit.eiusmod("dolor sit amet");',
+              },
+            ],
+          },
+          {
+            focus: 6,
+            replaces: [
+              {
+                line: 5,
+                values: '    sit.eiusmod("dolor sit amet");',
+              },
+            ],
+            inserts: [
+              {
+                line: 6,
+                values: "    tempor();",
+              },
+            ],
+          },
+          {
+            focus: 6,
+            replaces: [
+              {
+                line: 5,
+                values: '    sit.eiusmod("dolor sit amet");',
+              },
+            ],
+            inserts: [
+              {
+                line: 6,
+                values: "    tempor(ipsum, adipiscing);",
+              },
+            ],
+          },
+          {
+            replaces: [
+              {
+                line: 5,
+                values: '    sit.eiusmod("dolor sit amet");',
+              },
+            ],
+            inserts: [
+              {
+                line: 6,
+                values: "    tempor(ipsum, adipiscing);",
+              },
+            ],
+          },
+        ]}
+      />
+    </div>
+  );
+}
+```
+
+  </Tab>
+  <Tab>
+
+```css filename="styles.css" copy
+.layout {
+  padding: 16px;
+}
+
+@media (max-width: 767px) {
+  .layout {
+    padding: 0;
+  }
+}
+```
+
+  </Tab>
+</Tabs>
+
+### Step Buttons
+
+<iframe
+  src="/examples/control-steps-list"
+  height={400}
+  width="100%"
+  className="mt-6 mb-6 border border-gray-200"
+/>
+
+<Tabs items={["index.tsx", "styles.css"]}>
+  <Tab>
+   
+```javascript filename="index.tsx" copy
+import { CodeTour } from "@nguyend-nam/code-tour";
+import "./styles.css";
+
+const str = `function lorem(ipsum, dolor) {
+  const sit = "lorem ipsum";
+  dolor = elit(dolor, 3);
+  
+  while (++consectetur < amet) {
+    // TODO
+  }
+}`;
+
+export default function CodeTourDemo() {
+  return (
+    <div className="layout">
+      <CodeTour
+        defaultSourceCode={str}
+        language="javascript"
+        showNavigationBar={false}
+        showStepNameButtons
+        steps={[
+          { stepName: "Start" },
+          {
+            stepName: "Highlight",
+            focus: [0, [4, 6]],
+          },
+          {
+            stepName: "Highlight + Replace",
+            focus: 5,
+            replaces: [
+              {
+                line: 5,
+                values: "    sit.eiusmod();",
+              },
+            ],
+          },
+          {
+            stepName: "Highlight + Replace",
+            focus: 5,
+            replaces: [
+              {
+                line: 5,
+                values: '    sit.eiusmod("dolor sit amet");',
+              },
+            ],
+          },
+          {
+            stepName: "Highlight + Insert",
+            focus: 6,
+            replaces: [
+              {
+                line: 5,
+                values: '    sit.eiusmod("dolor sit amet");',
+              },
+            ],
+            inserts: [
+              {
+                line: 6,
+                values: "    tempor();",
+              },
+            ],
+          },
+          {
+            stepName: "Highlight + Insert",
+            focus: 6,
+            replaces: [
+              {
+                line: 5,
+                values: '    sit.eiusmod("dolor sit amet");',
+              },
+            ],
+            inserts: [
+              {
+                line: 6,
+                values: "    tempor(ipsum, adipiscing);",
+              },
+            ],
+          },
+          {
+            stepName: "End",
+            replaces: [
+              {
+                line: 5,
+                values: '    sit.eiusmod("dolor sit amet");',
+              },
+            ],
+            inserts: [
+              {
+                line: 6,
+                values: "    tempor(ipsum, adipiscing);",
+              },
+            ],
+          },
+        ]}
+      />
+    </div>
+  );
+}
+```
+
+  </Tab>
+  <Tab>
+
+```css filename="styles.css" copy
+.layout {
+  padding: 16px;
+}
+
+@media (max-width: 767px) {
+  .layout {
+    padding: 0;
+  }
+}
+```
+
+  </Tab>
+</Tabs>
+
 ## APIs
 
 ### Step
@@ -489,18 +745,24 @@ export default function CodeTourDefaultDemo() {
 
 ### Component
 
-| Name                          | Type            | Default | Description                                                | Required |
-| ----------------------------- | --------------- | ------- | ---------------------------------------------------------- | -------- |
-| **defaultSourceCode**         | `string`        |         | The source code you want to show                           | &check;  |
-| **language**                  | `string`        |         | The programming language of the source code                | &check;  |
-| **steps**                     | `string`        |         | The list of [Step](#step)s                                 |          |
-| **className**                 | `string`        |         | The classes you want to apply to the component             |          |
-| **style**                     | `CSSProperties` |         | The styles you want to apply to the component              |          |
-| **navigationClassName**       | `string`        |         | The classes you want to apply to the navigation            |          |
-| **navigationStyle**           | `CSSProperties` |         | The styles you want to apply to the navigation             |          |
-| **navigationButtonClassName** | `string`        |         | The classes you want to apply to the navigation buttons    |          |
-| **navigationButtonStyle**     | `CSSProperties` |         | The styles you want to apply to the navigation buttons     |          |
-| **codeContainerClassName**    | `string`        |         | The classes you want to apply to the source code container |          |
-| **codeContainerStyle**        | `CSSProperties` |         | The styles you want to apply to the source code container  |          |
-| **codeLineClassName**         | `string`        |         | The classes you want to apply to the source code lines     |          |
-| **codeLineStyle**             | `CSSProperties` |         | The styles you want to apply to the source code lines      |          |
+| Name                              | Type            | Default | Description                                                 | Required |
+| --------------------------------- | --------------- | ------- | ----------------------------------------------------------- | -------- |
+| **defaultSourceCode**             | `string`        |         | The source code you want to show                            | &check;  |
+| **language**                      | `string`        |         | The programming language of the source code                 | &check;  |
+| **steps**                         | `string`        | `[]`    | The list of [Step](#step)s                                  |          |
+| **showNavigationBar**             | `boolean`       | `true`  | Show/hide navigation buttons                                |          |
+| **showStepNameButtons**           | `boolean`       | `false` | Show/hide step buttons                                      |          |
+| **className**                     | `string`        |         | The classes you want to apply to the component              |          |
+| **style**                         | `CSSProperties` |         | The styles you want to apply to the component               |          |
+| **navigationClassName**           | `string`        |         | The classes you want to apply to the navigation             |          |
+| **navigationStyle**               | `CSSProperties` |         | The styles you want to apply to the navigation              |          |
+| **navigationButtonClassName**     | `string`        |         | The classes you want to apply to the navigation buttons     |          |
+| **navigationButtonStyle**         | `CSSProperties` |         | The styles you want to apply to the navigation buttons      |          |
+| **codeContainerClassName**        | `string`        |         | The classes you want to apply to the source code container  |          |
+| **codeContainerStyle**            | `CSSProperties` |         | The styles you want to apply to the source code container   |          |
+| **codeLineClassName**             | `string`        |         | The classes you want to apply to the source code lines      |          |
+| **codeLineStyle**                 | `CSSProperties` |         | The styles you want to apply to the source code lines       |          |
+| **stepButtonsContainerClassName** | `string`        |         | The classes you want to apply to the step buttons container |          |
+| **stepButtonsContainerStyle**     | `CSSProperties` |         | The styles you want to apply to the step buttons container  |          |
+| **stepButtonClassName**           | `string`        |         | The classes you want to apply to the step buttons           |          |
+| **stepButtonStyle**               | `CSSProperties` |         | The styles you want to apply to the step buttons            |          |

@@ -17,12 +17,16 @@ export default function CodeTourDemo() {
       <CodeTour
         defaultSourceCode={str}
         language="javascript"
+        showNavigationBar={false}
+        showStepNameButtons
         steps={[
-          {},
+          { stepName: "Start" },
           {
+            stepName: "Highlight",
             focus: [0, [4, 6]],
           },
           {
+            stepName: "Highlight + Replace",
             focus: 5,
             replaces: [
               {
@@ -32,6 +36,7 @@ export default function CodeTourDemo() {
             ],
           },
           {
+            stepName: "Highlight + Replace",
             focus: 5,
             replaces: [
               {
@@ -41,6 +46,7 @@ export default function CodeTourDemo() {
             ],
           },
           {
+            stepName: "Highlight + Insert",
             focus: 6,
             replaces: [
               {
@@ -56,6 +62,7 @@ export default function CodeTourDemo() {
             ],
           },
           {
+            stepName: "Highlight + Insert",
             focus: 6,
             replaces: [
               {
@@ -71,70 +78,11 @@ export default function CodeTourDemo() {
             ],
           },
           {
+            stepName: "End",
             replaces: [
               {
                 line: 5,
                 values: '    sit.eiusmod("dolor sit amet");',
-              },
-            ],
-            inserts: [
-              {
-                line: 6,
-                values: "    tempor(ipsum, adipiscing);",
-              },
-            ],
-          },
-          {
-            focus: [4, 7],
-            replaces: [
-              {
-                line: 5,
-                values: '    sit.eiusmod("dolor sit amet");',
-              },
-            ],
-            inserts: [
-              {
-                line: 6,
-                values: "    tempor(ipsum, adipiscing);",
-              },
-            ],
-          },
-          {
-            focus: [4, 7],
-            replaces: [
-              {
-                line: 5,
-                values: '    sit.eiusmod("dolor sit amet");',
-              },
-              {
-                line: 4,
-                values: "  do {",
-              },
-              {
-                line: 7,
-                values: "  } while (++consectetur < amet);",
-              },
-            ],
-            inserts: [
-              {
-                line: 6,
-                values: "    tempor(ipsum, adipiscing);",
-              },
-            ],
-          },
-          {
-            replaces: [
-              {
-                line: 5,
-                values: '    sit.eiusmod("dolor sit amet");',
-              },
-              {
-                line: 4,
-                values: "  do {",
-              },
-              {
-                line: 7,
-                values: "  } while (++consectetur < amet);",
               },
             ],
             inserts: [

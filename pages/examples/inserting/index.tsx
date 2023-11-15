@@ -5,7 +5,7 @@ import { CodeTour } from "../../../components";
 const str = `function lorem(ipsum, dolor) {
 }`;
 
-export default function CodeTourDefaultDemo() {
+export default function CodeTourDemo() {
   return (
     <div className={styles.layout}>
       <CodeTour
