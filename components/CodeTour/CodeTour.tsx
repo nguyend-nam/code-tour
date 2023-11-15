@@ -415,7 +415,8 @@ const StepButtonsControl = ({
                 color: stepIndex === index ? "#FFF" : "#15172E",
                 width: 120,
                 borderRadius: 0,
-                border: '1px inset solid #E2E8F0',
+                border: "1px solid #E2E8F0",
+                boxSizing: "border-box",
                 ...stepButtonStyle,
               }}
               className={cx(
