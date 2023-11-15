@@ -2,8 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@import "highlight.js/styles/night-owl.css";
-
 html,
 body {
   padding: 0;
@@ -34,12 +32,12 @@ ul > li.active > ul {
 }
 
 ul > li.active > a > span.doc-sidebar-item {
-  color: #00DBC0 !important;
+  color: #00dbc0 !important;
   font-weight: 600 !important;
 }
 
 table.nx-block {
-  border: 1px solid #581EFF !important;
+  border: 1px solid #581eff !important;
   scrollbar-gutter: unset !important;
 }
 
@@ -49,7 +47,7 @@ table.nx-block tr {
 
 table.nx-block tr th {
   border: none !important;
-  background-color: #581EFF !important;
+  background-color: #581eff !important;
   color: #ffffff !important;
   max-width: unset !important;
   width: unset !important;
@@ -77,11 +75,11 @@ table.nx-block td {
 }
 
 .nx-text-primary-600 {
-  color: #581EFF !important;
+  color: #581eff !important;
 }
 
 .nx-border-primary-500 {
-  border-color: #581EFF !important;
+  border-color: #581eff !important;
 }
 
 input {
@@ -91,14 +89,4 @@ input {
 footer > div:nth-of-type(2) {
   padding-top: 24px !important;
   padding-bottom: 24px !important;
-}
-
-@keyframes slide-left {
-  0% {
-    transform: translateX(8px);
-  }
-
-  100% {
-    transform: translateX(0px);
-  }
 }

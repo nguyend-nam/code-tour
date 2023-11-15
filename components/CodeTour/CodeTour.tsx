@@ -14,6 +14,8 @@ import cx from "classnames";
 import hljs from "highlight.js/lib/common";
 import { HighlightOptions } from "highlight.js";
 
+import "highlight.js/styles/night-owl.css";
+
 export interface CodeStepConfig {
   stepName?: string;
   sourceCode?: string;
@@ -225,66 +227,80 @@ export const CodeTour = (props: CodeTourProps) => {
   ]);
 
   return (
-    <div
-      style={{ maxWidth: "100%", padding: 24, ...style }}
-      className={className}
-    >
-      {showNavigationBar ? (
-        <CodeTourNavigation
-          onPrevClick={decreaseStepIndex}
-          onNextClick={increaseStepIndex}
-          navigationStyle={navigationStyle}
-          navigationButtonStyle={navigationButtonStyle}
-          navigationButtonClassName={navigationButtonClassName}
-          navigationClassName={navigationClassName}
-        />
-      ) : null}
+    <>
+      <style>{`
+        @keyframes slide-left {
+          0% {
+            transform: translateX(8px);
+          }
+        
+          100% {
+            transform: translateX(0px);
+          }
+        }
+      `}</style>
 
       <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          gap: 8,
-          alignItems: "center",
-          width: "100%",
-        }}
+        style={{ maxWidth: "100%", padding: 24, ...style }}
+        className={className}
       >
-        {showStepNameButtons ? (
-          <StepButtonsControl
-            lines={lines}
-            stepIndex={stepIndex}
-            setStepIndex={setStepIndex}
-            steps={steps}
-            stepButtonsContainerStyle={stepButtonsContainerStyle}
-            stepButtonsContainerClassName={stepButtonsContainerClassName}
-            stepButtonStyle={stepButtonStyle}
-            stepButtonClassName={stepButtonClassName}
+        {showNavigationBar ? (
+          <CodeTourNavigation
+            onPrevClick={decreaseStepIndex}
+            onNextClick={increaseStepIndex}
+            navigationStyle={navigationStyle}
+            navigationButtonStyle={navigationButtonStyle}
+            navigationButtonClassName={navigationButtonClassName}
+            navigationClassName={navigationClassName}
           />
         ) : null}
 
         <div
           style={{
-            // maxWidth: "100%",
-            boxSizing: "border-box",
-            overflow: "auto",
-            backgroundColor: "#15172E",
-            flexGrow: 1,
-            ...codeContainerStyle,
+            display: "flex",
+            justifyContent: "center",
+            gap: 8,
+            alignItems: "center",
+            width: "100%",
           }}
-          className={codeContainerClassName}
         >
+          {showStepNameButtons ? (
+            <StepButtonsControl
+              lines={lines}
+              stepIndex={stepIndex}
+              setStepIndex={setStepIndex}
+              steps={steps}
+              stepButtonsContainerStyle={stepButtonsContainerStyle}
+              stepButtonsContainerClassName={stepButtonsContainerClassName}
+              stepButtonStyle={stepButtonStyle}
+              stepButtonClassName={stepButtonClassName}
+            />
+          ) : null}
+
           <div
             style={{
-              width: "max-content",
-              minWidth: "100%",
-              padding: 16,
+              // maxWidth: "100%",
+              boxSizing: "border-box",
+              overflow: "auto",
+              backgroundColor: "#15172E",
+              flexGrow: 1,
+              ...codeContainerStyle,
             }}
+            className={codeContainerClassName}
           >
-            {codeToRender}
+            <div
+              style={{
+                width: "max-content",
+                minWidth: "100%",
+                padding: 16,
+              }}
+            >
+              {codeToRender}
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
