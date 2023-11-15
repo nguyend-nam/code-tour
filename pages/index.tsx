@@ -4,6 +4,7 @@ import { CodeTour } from "../components/CodeTour";
 import cx from "classnames";
 import { Icon } from "@iconify/react";
 import { useRouter } from "next/router";
+import { demoSourceCode, demoSteps } from "../constants/source-code";
 
 export const Brand = ({
   theme = "dark",
@@ -36,15 +37,6 @@ export const Brand = ({
     </span>
   );
 };
-
-const str = `function lorem(ipsum, dolor) {
-  const sit = "lorem ipsum";
-  dolor = elit(dolor, 3);
-  
-  while (++consectetur < amet) {
-    // TODO
-  }
-}`;
 
 export default function Home() {
   const { push } = useRouter();
@@ -160,137 +152,24 @@ export default function Home() {
           className="h-screen min-h-[700px] flex justify-center items-center bg-v2-purple-normal"
         >
           <CodeTour
-            defaultSourceCode={str}
+            defaultSourceCode={demoSourceCode}
             language="javascript"
-            codeContainerClassName="!max-w-[349px]"
-            steps={[
-              {},
-              {
-                focus: [0, [4, 6]],
-              },
-              {
-                focus: 5,
-                replaces: [
-                  {
-                    line: 5,
-                    values: "    sit.eiusmod();",
-                  },
-                ],
-              },
-              {
-                focus: 5,
-                replaces: [
-                  {
-                    line: 5,
-                    values: '    sit.eiusmod("dolor sit amet");',
-                  },
-                ],
-              },
-              {
-                focus: 6,
-                replaces: [
-                  {
-                    line: 5,
-                    values: '    sit.eiusmod("dolor sit amet");',
-                  },
-                ],
-                inserts: [
-                  {
-                    line: 6,
-                    values: "    tempor();",
-                  },
-                ],
-              },
-              {
-                focus: 6,
-                replaces: [
-                  {
-                    line: 5,
-                    values: '    sit.eiusmod("dolor sit amet");',
-                  },
-                ],
-                inserts: [
-                  {
-                    line: 6,
-                    values: "    tempor(ipsum, adipiscing);",
-                  },
-                ],
-              },
-              {
-                replaces: [
-                  {
-                    line: 5,
-                    values: '    sit.eiusmod("dolor sit amet");',
-                  },
-                ],
-                inserts: [
-                  {
-                    line: 6,
-                    values: "    tempor(ipsum, adipiscing);",
-                  },
-                ],
-              },
-              {
-                focus: [4, 7],
-                replaces: [
-                  {
-                    line: 5,
-                    values: '    sit.eiusmod("dolor sit amet");',
-                  },
-                ],
-                inserts: [
-                  {
-                    line: 6,
-                    values: "    tempor(ipsum, adipiscing);",
-                  },
-                ],
-              },
-              {
-                focus: [4, 7],
-                replaces: [
-                  {
-                    line: 5,
-                    values: '    sit.eiusmod("dolor sit amet");',
-                  },
-                  {
-                    line: 4,
-                    values: "  do {",
-                  },
-                  {
-                    line: 7,
-                    values: "  } while (++consectetur < amet);",
-                  },
-                ],
-                inserts: [
-                  {
-                    line: 6,
-                    values: "    tempor(ipsum, adipiscing);",
-                  },
-                ],
-              },
-              {
-                replaces: [
-                  {
-                    line: 5,
-                    values: '    sit.eiusmod("dolor sit amet");',
-                  },
-                  {
-                    line: 4,
-                    values: "  do {",
-                  },
-                  {
-                    line: 7,
-                    values: "  } while (++consectetur < amet);",
-                  },
-                ],
-                inserts: [
-                  {
-                    line: 6,
-                    values: "    tempor(ipsum, adipiscing);",
-                  },
-                ],
-              },
-            ]}
+            codeContainerClassName="!w-[465px]"
+            steps={demoSteps}
+          />
+        </div>
+
+        <div
+          id="demo"
+          className="h-screen min-h-[700px] flex justify-center items-center bg-slate-800"
+        >
+          <CodeTour
+            defaultSourceCode={demoSourceCode}
+            language="javascript"
+            codeContainerClassName="!max-w-[345px]"
+            showStepNameButtons
+            showNavigationBar={false}
+            steps={[...demoSteps.slice(0, 7)]}
           />
         </div>
       </main>
