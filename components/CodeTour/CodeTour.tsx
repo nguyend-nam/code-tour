@@ -132,17 +132,12 @@ export const CodeTour = (props: CodeTourProps) => {
     if (config?.inserts && config?.inserts.length > 0) {
       const mappedInserts = config.inserts.map((insert) => ({
         index: insert.line,
-        value: insert.values,
+        value: { value: insert.values, animated: true },
       }));
 
       sourceCodeToDisplay = insertByIndex(
         sourceCodeToDisplay,
-        mappedInserts
-          .map((insert) => ({
-            index: insert.index,
-            value: { value: insert.value, animated: true },
-          }))
-          .reverse()
+        mappedInserts.reverse()
       );
     }
 
@@ -150,7 +145,6 @@ export const CodeTour = (props: CodeTourProps) => {
       config.replaces.forEach((replace) => {
         const newLines = [...sourceCodeToDisplay];
         newLines[replace.line] = { value: replace.values, animated: true };
-        // sourceCodeToDisplay = newLines.join("\n").split("\n");
         sourceCodeToDisplay = newLines;
       });
     }
@@ -169,7 +163,7 @@ export const CodeTour = (props: CodeTourProps) => {
                 transition: "opacity 0.3s",
                 ...codeLineStyle,
               }}
-              className={codeLineClassName}
+              className={cx("ct-code-line", codeLineClassName)}
               id={line.value}
             >
               <pre
@@ -178,11 +172,6 @@ export const CodeTour = (props: CodeTourProps) => {
                   backgroundColor: "transparent",
                   paddingLeft: 4,
                   paddingRight: 4,
-                  ...(line.animated
-                    ? {
-                        animation: "slide-left 0.3s linear forwards",
-                      }
-                    : {}),
                   ...(config?.focus !== undefined &&
                   ((typeof config?.focus === "number" &&
                     index !== config.focus) ||
@@ -208,6 +197,11 @@ export const CodeTour = (props: CodeTourProps) => {
                   }}
                   style={{
                     lineHeight: "28px",
+                    ...(line.animated
+                      ? {
+                          animation: "slide-left 0.3s linear forwards",
+                        }
+                      : {}),
                   }}
                 />
               </pre>
@@ -231,6 +225,8 @@ export const CodeTour = (props: CodeTourProps) => {
     >
       {showNavigationBar ? (
         <CodeTourNavigation
+          steps={steps}
+          stepIndex={stepIndex}
           onPrevClick={decreaseStepIndex}
           onNextClick={increaseStepIndex}
           navigationStyle={navigationStyle}
@@ -264,14 +260,13 @@ export const CodeTour = (props: CodeTourProps) => {
 
         <div
           style={{
-            // maxWidth: "100%",
             boxSizing: "border-box",
             overflow: "auto",
             backgroundColor: "#15172E",
             flexGrow: 1,
             ...codeContainerStyle,
           }}
-          className={codeContainerClassName}
+          className={cx("ct-code-container", codeContainerClassName)}
         >
           <div
             style={{
@@ -289,6 +284,8 @@ export const CodeTour = (props: CodeTourProps) => {
 };
 
 interface CodeTourNavigationProps {
+  steps: CodeStepConfig[];
+  stepIndex: number;
   onPrevClick: () => void;
   onNextClick: () => void;
   navigationStyle?: CSSProperties;
@@ -298,6 +295,8 @@ interface CodeTourNavigationProps {
 }
 
 const CodeTourNavigation = ({
+  steps,
+  stepIndex,
   onPrevClick,
   onNextClick,
   navigationStyle,
@@ -306,7 +305,7 @@ const CodeTourNavigation = ({
   navigationButtonClassName,
 }: CodeTourNavigationProps) => {
   return (
-    <div
+    <nav
       style={{
         display: "flex",
         gap: 24,
@@ -314,7 +313,8 @@ const CodeTourNavigation = ({
         paddingBottom: 24,
         ...navigationStyle,
       }}
-      className={navigationClassName}
+      role="navigation"
+      className={cx("ct-navigation-bar", navigationClassName)}
     >
       <button
         style={{
@@ -325,10 +325,15 @@ const CodeTourNavigation = ({
           padding: 8,
           height: 40,
           width: 40,
+          transition: "opacity 0.3s",
+          ...(stepIndex === 0 ? { opacity: 0.6, cursor: "not-allowed" } : {}),
           ...navigationButtonStyle,
         }}
-        className={navigationButtonClassName}
+        className={cx("ct-navigation-button", navigationButtonClassName, {
+          "ct-navigation-button--disabled": stepIndex === 0,
+        })}
         onClick={onPrevClick}
+        disabled={stepIndex === 0}
       >
         <Icon
           icon="solar:arrow-left-line-duotone"
@@ -347,10 +352,17 @@ const CodeTourNavigation = ({
           padding: 8,
           height: 40,
           width: 40,
+          transition: "opacity 0.3s",
+          ...(stepIndex === steps.length - 1
+            ? { opacity: 0.6, cursor: "not-allowed" }
+            : {}),
           ...navigationButtonStyle,
         }}
-        className={navigationButtonClassName}
+        className={cx("ct-navigation-button", navigationButtonClassName, {
+          "ct-navigation-button--disabled": stepIndex === steps.length - 1,
+        })}
         onClick={onNextClick}
+        disabled={stepIndex === steps.length - 1}
       >
         <Icon
           icon="solar:arrow-right-line-duotone"
@@ -360,7 +372,7 @@ const CodeTourNavigation = ({
           }}
         />
       </button>
-    </div>
+    </nav>
   );
 };
 
@@ -393,7 +405,7 @@ const StepButtonsControl = ({
         height: `${lines * 28 + 32}px`,
         ...stepButtonsContainerStyle,
       }}
-      className={stepButtonsContainerClassName}
+      className={cx("ct-step-button-container", stepButtonsContainerClassName)}
     >
       <div
         style={{
@@ -412,16 +424,18 @@ const StepButtonsControl = ({
                 textAlign: "left",
                 padding: "4px 8px",
                 backgroundColor: stepIndex === index ? "#00DBC0" : "#FFF",
-                color: stepIndex === index ? "#FFF" : "#15172E",
+                color: "#15172E",
                 width: 120,
                 borderRadius: 0,
                 border: "1px solid #E2E8F0",
                 boxSizing: "border-box",
+                wordBreak: "break-word",
                 ...stepButtonStyle,
               }}
               className={cx(
+                "ct-step-button",
                 {
-                  "step-button--active": stepIndex === index,
+                  "ct-step-button--active": stepIndex === index,
                 },
                 stepButtonClassName
               )}
