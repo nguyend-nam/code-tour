@@ -429,11 +429,12 @@ const StepButtonsControl = ({
                 textAlign: "left",
                 padding: "4px 8px",
                 backgroundColor: stepIndex === index ? "#00DBC0" : "#FFF",
-                color: stepIndex === index ? "#FFF" : "#15172E",
+                color: "#15172E",
                 width: 120,
                 borderRadius: 0,
                 border: "1px solid #E2E8F0",
                 boxSizing: "border-box",
+                wordBreak: "break-word",
                 ...stepButtonStyle,
               }}
               className={cx(
