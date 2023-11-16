@@ -147,7 +147,7 @@ export default function Home() {
           </div>
         </section>
 
-        <div
+        <section
           id="demo"
           className="h-screen min-h-[700px] flex gap-0 md:gap-8 flex-col lg:flex-row justify-center items-center bg-v2-purple-normal"
         >
@@ -167,12 +167,9 @@ export default function Home() {
               navigation options to explore your content effortlessly.
             </p>
           </div>
-        </div>
+        </section>
 
-        <div
-          id="demo"
-          className="h-screen min-h-[700px] flex gap-0 md:gap-8 flex-col lg:flex-row-reverse justify-center items-center bg-slate-800"
-        >
+        <section className="h-screen min-h-[700px] flex gap-0 md:gap-8 flex-col lg:flex-row-reverse justify-center items-center bg-slate-800">
           <CodeTour
             defaultSourceCode={demoSourceCode}
             language="javascript"
@@ -191,7 +188,7 @@ export default function Home() {
               detailed and customized exploration of your content.
             </p>
           </div>
-        </div>
+        </section>
       </main>
 
       <footer className="p-6 bg-gray-50">
