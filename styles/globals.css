@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@import './main.css';
+@import "./styles.css";
 
 html,
 body {

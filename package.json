@@ -1,6 +1,6 @@
 {
   "name": "@nguyend-nam/code-tour",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "repository": {
     "type": "git",
     "url": "https://github.com/nguyend-nam/code-tour"
@@ -14,7 +14,7 @@
     "start": "next start",
     "lint": "next lint",
     "clean": "rm -rf dist",
-    "npm-build": "npm run clean && tsc && cp package.json README.md styles/main.css ./dist"
+    "npm-build": "npm run clean && tsc && cp package.json README.md styles/styles.css ./dist"
   },
   "dependencies": {
     "@iconify/react": "^4.1.1",
