@@ -132,17 +132,12 @@ export const CodeTour = (props: CodeTourProps) => {
     if (config?.inserts && config?.inserts.length > 0) {
       const mappedInserts = config.inserts.map((insert) => ({
         index: insert.line,
-        value: insert.values,
+        value: { value: insert.values, animated: true },
       }));
 
       sourceCodeToDisplay = insertByIndex(
         sourceCodeToDisplay,
-        mappedInserts
-          .map((insert) => ({
-            index: insert.index,
-            value: { value: insert.value, animated: true },
-          }))
-          .reverse()
+        mappedInserts.reverse()
       );
     }
 
@@ -177,11 +172,6 @@ export const CodeTour = (props: CodeTourProps) => {
                   backgroundColor: "transparent",
                   paddingLeft: 4,
                   paddingRight: 4,
-                  ...(line.animated
-                    ? {
-                        animation: "slide-left 0.3s linear forwards",
-                      }
-                    : {}),
                   ...(config?.focus !== undefined &&
                   ((typeof config?.focus === "number" &&
                     index !== config.focus) ||
@@ -207,6 +197,11 @@ export const CodeTour = (props: CodeTourProps) => {
                   }}
                   style={{
                     lineHeight: "28px",
+                    ...(line.animated
+                      ? {
+                          animation: "slide-left 0.3s linear forwards",
+                        }
+                      : {}),
                   }}
                 />
               </pre>

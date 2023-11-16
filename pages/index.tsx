@@ -5,6 +5,8 @@ import cx from "classnames";
 import { Icon } from "@iconify/react";
 import { useRouter } from "next/router";
 import { demoSourceCode, demoSteps } from "../constants/source-code";
+import { useState } from "react";
+import { useEffect } from "react";
 
 export const Brand = ({
   theme = "dark",
@@ -41,6 +43,19 @@ export const Brand = ({
 export default function Home() {
   const { push } = useRouter();
 
+  const [introCodeIndex, setIntroCodeIndex] = useState(0);
+  const interval = 3 * 1000;
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setIntroCodeIndex((introCodeIndex + 1) % 3);
+    }, interval);
+
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [interval, introCodeIndex]);
+
   return (
     <>
       <Head>
@@ -73,7 +88,10 @@ export default function Home() {
               rel="noreferrer"
               className="p-2 h-10 w-10"
             >
-              <Icon icon="cib:github" className="text-[24px] text-black" />
+              <Icon
+                icon="fa-brands:github"
+                className="text-[24px] text-black"
+              />
             </a>
           </div>
         </div>
@@ -97,11 +115,24 @@ export default function Home() {
                     theme="primary-light"
                     className="!text-4xl md:!text-5xl block mb-4"
                   />
-                  <p className="text-white text-2xl md:text-3xl font-normal">
-                    Interactive code walkthroughs
-                    <br />
-                    for the web.
+                  <p className="text-white text-2xl md:text-3xl font-normal max-w-md">
+                    Interactive code walkthroughs for the web.
                   </p>
+                  <CodeTour
+                    defaultSourceCode={`[1]: Interactive
+[2]: Intuitive
+[3]: Explicit
+`}
+                    language="markdown"
+                    codeContainerClassName="!w-screen lg:!w-[345px] !-mx-5"
+                    className="!p-0 md:!pt-6"
+                    showNavigationBar={false}
+                    steps={[
+                      {
+                        focus: introCodeIndex,
+                      },
+                    ]}
+                  />
                 </div>
               </div>
 
@@ -149,7 +180,7 @@ export default function Home() {
 
         <section
           id="demo"
-          className="h-screen min-h-[700px] flex gap-0 md:gap-8 flex-col lg:flex-row justify-center items-center bg-v2-purple-normal"
+          className="min-h-screen pb-6 flex gap-0 md:gap-8 flex-col lg:flex-row justify-center items-center bg-v2-purple-normal"
         >
           <CodeTour
             defaultSourceCode={demoSourceCode}
@@ -169,10 +200,10 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="h-screen min-h-[700px] flex gap-0 md:gap-8 flex-col lg:flex-row-reverse justify-center items-center bg-slate-800">
+        <section className="min-h-screen pb-6 flex gap-0 md:gap-8 flex-col lg:flex-row-reverse justify-center items-center bg-slate-800">
           <CodeTour
             defaultSourceCode={demoSourceCode}
-            language="javascript"
+            language="golang"
             codeContainerClassName="!w-screen lg:!w-[345px]"
             showStepNameButtons
             showNavigationBar={false}
@@ -183,7 +214,7 @@ export default function Home() {
               Step Selection Buttons
             </h2>
             <p className="text-base md:text-lg text-white">
-              Clear <u>step-by-step</u> tutorial controls with a list of
+              <u>Explicit</u> step-by-step tutorial controls with a list of
               buttons. Easily select and navigate to specific steps for a
               detailed and customized exploration of your content.
             </p>
