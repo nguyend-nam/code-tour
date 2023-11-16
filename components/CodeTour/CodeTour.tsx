@@ -13,7 +13,6 @@ import cx from "classnames";
 
 import hljs from "highlight.js/lib/common";
 import { HighlightOptions } from "highlight.js";
-import Head from "next/head";
 
 export interface CodeStepConfig {
   stepName?: string;
@@ -226,87 +225,66 @@ export const CodeTour = (props: CodeTourProps) => {
   ]);
 
   return (
-    <>
-      <Head>
-        {/* eslint-disable-next-line @next/next/no-css-tags */}
-        <link
-          rel="stylesheet"
-          href="https://unpkg.com/highlightjs@9.16.2/styles/night-owl.css"
+    <div
+      style={{ maxWidth: "100%", padding: 24, ...style }}
+      className={className}
+    >
+      {showNavigationBar ? (
+        <CodeTourNavigation
+          onPrevClick={decreaseStepIndex}
+          onNextClick={increaseStepIndex}
+          navigationStyle={navigationStyle}
+          navigationButtonStyle={navigationButtonStyle}
+          navigationButtonClassName={navigationButtonClassName}
+          navigationClassName={navigationClassName}
         />
-        <style>{`
-        @keyframes slide-left {
-          0% {
-            transform: translateX(8px);
-          }
-        
-          100% {
-            transform: translateX(0px);
-          }
-        }
-        `}</style>
-      </Head>
+      ) : null}
 
       <div
-        style={{ maxWidth: "100%", padding: 24, ...style }}
-        className={className}
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          gap: 8,
+          alignItems: "center",
+          width: "100%",
+        }}
       >
-        {showNavigationBar ? (
-          <CodeTourNavigation
-            onPrevClick={decreaseStepIndex}
-            onNextClick={increaseStepIndex}
-            navigationStyle={navigationStyle}
-            navigationButtonStyle={navigationButtonStyle}
-            navigationButtonClassName={navigationButtonClassName}
-            navigationClassName={navigationClassName}
+        {showStepNameButtons ? (
+          <StepButtonsControl
+            lines={lines}
+            stepIndex={stepIndex}
+            setStepIndex={setStepIndex}
+            steps={steps}
+            stepButtonsContainerStyle={stepButtonsContainerStyle}
+            stepButtonsContainerClassName={stepButtonsContainerClassName}
+            stepButtonStyle={stepButtonStyle}
+            stepButtonClassName={stepButtonClassName}
           />
         ) : null}
 
         <div
           style={{
-            display: "flex",
-            justifyContent: "center",
-            gap: 8,
-            alignItems: "center",
-            width: "100%",
+            // maxWidth: "100%",
+            boxSizing: "border-box",
+            overflow: "auto",
+            backgroundColor: "#15172E",
+            flexGrow: 1,
+            ...codeContainerStyle,
           }}
+          className={codeContainerClassName}
         >
-          {showStepNameButtons ? (
-            <StepButtonsControl
-              lines={lines}
-              stepIndex={stepIndex}
-              setStepIndex={setStepIndex}
-              steps={steps}
-              stepButtonsContainerStyle={stepButtonsContainerStyle}
-              stepButtonsContainerClassName={stepButtonsContainerClassName}
-              stepButtonStyle={stepButtonStyle}
-              stepButtonClassName={stepButtonClassName}
-            />
-          ) : null}
-
           <div
             style={{
-              // maxWidth: "100%",
-              boxSizing: "border-box",
-              overflow: "auto",
-              backgroundColor: "#15172E",
-              flexGrow: 1,
-              ...codeContainerStyle,
+              width: "max-content",
+              minWidth: "100%",
+              padding: 16,
             }}
-            className={codeContainerClassName}
           >
-            <div
-              style={{
-                width: "max-content",
-                minWidth: "100%",
-                padding: 16,
-              }}
-            >
-              {codeToRender}
-            </div>
+            {codeToRender}
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

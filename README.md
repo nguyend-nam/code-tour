@@ -25,8 +25,16 @@ yarn add @nguyend-nam/code-tour
 
 ### Importing `CodeTour`
 
+Import the component into your project:
+
 ```javascript
 import { CodeTour } from "@nguyend-nam/code-tour";
+```
+
+Don't forget to import the stylesheet into your CSS file:
+
+```css copy
+@import "@nguyend-nam/code-tour/dist/main.css";
 ```
 
 ### Using in the web

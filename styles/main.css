@@ -1,0 +1,12 @@
+/* @import "highlight.js/styles/night-owl.css"; */
+@import "https://unpkg.com/highlightjs@9.16.2/styles/night-owl.css";
+
+@keyframes slide-left {
+  0% {
+    transform: translateX(8px);
+  }
+
+  100% {
+    transform: translateX(0px);
+  }
+}
