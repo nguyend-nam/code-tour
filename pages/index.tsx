@@ -203,7 +203,7 @@ export default function Home() {
         <section className="min-h-screen pb-6 flex gap-0 md:gap-8 flex-col lg:flex-row-reverse justify-center items-center bg-slate-800">
           <CodeTour
             defaultSourceCode={demoSourceCode}
-            language="golang"
+            language="javascript"
             codeContainerClassName="!w-screen lg:!w-[345px]"
             showStepNameButtons
             showNavigationBar={false}
