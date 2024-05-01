@@ -8,7 +8,8 @@ export default function Document() {
         <meta name="twitter:card" content="summary" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="theme-color" content="#00DBC0" />
-        <meta property="og:title" content="Code Tour" />
+        <meta property="og:site_name" content="Code Tour" />
+        <meta property="og:title" content="Code Tour: Interactive code walkthroughs for the web." />
         <meta
           property="og:description"
           content="Interactive code walkthroughs for the web."
