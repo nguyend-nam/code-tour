@@ -115,7 +115,7 @@ export default function Home() {
                     theme="primary-light"
                     className="!text-4xl md:!text-5xl block mb-4"
                   />
-                  <p className="text-white text-2xl md:text-3xl font-normal max-w-md">
+                  <p className="text-white text-xl md:text-3xl font-normal max-w-md">
                     Interactive code walkthroughs for the web.
                   </p>
                   <CodeTour
